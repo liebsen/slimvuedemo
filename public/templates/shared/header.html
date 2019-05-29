@@ -1,0 +1,23 @@
+	<header>
+		<nav>
+			<span class="icon"></span>
+			<div>
+			<a class="tool-logo is-link" href="{{baseurl}}">
+				<img src="{{baseurl}}/img/logo.png">
+			</a>
+			</div>
+			<ul class="nav">
+				<li>
+					<a href="{{baseurl}}" data-norouter="true" class="{% if(segments[1] == '') %}current{% endif %}">Introduction</a>
+				</li>
+				<li>
+					<a href="{{baseurl}}/rf/compose" data-norouter="true" class="{% if(segments[1] == 'rf') %}current{% endif %}">ReFocus Now</a>
+				</li>
+				<li>
+					<a href="{{baseurl}}/about" data-norouter="true" class="{% if(segments[1] == 'about') %}current{% endif %}">About ReFocusing</a>
+				</li>
+			</ul>
+		</nav>
+	
+		<a href="{{baseurl}}" target="_blank"><img src="{{baseurl}}/img/homepage_thnk_logo.png" alt="The Blue Ocean Company’s developmental initiatives" class="branding"></a>
+	</header>	

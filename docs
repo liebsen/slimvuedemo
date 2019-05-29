@@ -1,0 +1,187 @@
+<?php
+
+use League\Fractal\Manager;
+use League\Fractal\Resource\Item;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Serializer\DataArraySerializer;
+use Slim\Views\Twig;
+use App\Doc;
+
+date_default_timezone_set("UTC");
+
+#error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
+require __DIR__ . "/vendor/autoload.php";
+
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+/* Setup Slim */
+$app = new Slim\App();
+$container = $app->getContainer();
+
+require __DIR__ . "/routes/dependencies.php";
+require __DIR__ . "/routes/functions.php";
+
+print "Printing documentation...\n";
+
+define('FPDF_FONTPATH','/var/www/weber/fpdf/font');
+
+function writeHTML($path, $data, $mode="w"){
+   $fh = fopen($path, $mode) or die($path);
+   fwrite($fh,$data);
+   fclose($fh);
+   chmod($path, 0777);
+}
+
+$docs = $container["spot"]->mapper("App\Doc")->where(['enabled' => 1]);
+$public_html = __DIR__ . '/' . getenv('APP_PUBLIC');
+$docs_dest = $public_html . 'docs/';
+$uploads_dest = $public_html . 'uploads/';
+$img_dest = $public_html . 'img/';
+
+$view = new \Slim\Views\Twig( $public_html . 'templates', [
+    'cache' => false
+]);
+
+foreach ($docs as $id => $doc) {
+
+	$folder = $docs_dest. $doc->name;
+	$folder_img = $folder . '/img/';
+	$html_file = $folder . '/index.html';
+
+	if(!file_exists($folder)){
+		mkdir($folder);
+	}
+	if(!is_writable($folder)){
+		chmod($folder, 0777);
+	}
+	if(!file_exists($folder_img)){
+		mkdir($folder_img);
+	}
+	if(!is_writable($folder_img)){
+		chmod($folder_img, 0777);
+	}
+
+    // create pdf canvas
+    $pdf = new FPDF();
+    $pdf->setTitle(utf8_decode($doc->title));
+    $pdf->AddFont('Weber-Regular','','Weber-Regular.php');
+    $pdf->AddFont('Weber-Bold','','Weber-Bold.php');
+    $pdf->AddFont('Weber-Medium','','Weber-Medium.php');
+    $pdf->AddFont('Weber-Light','','Weber-Light.php');
+    $pdf->AddFont('Weber-LightItalic','','Weber-LightItalic.php');
+    $pdf->SetFont('Weber-Regular','',16);
+    $pdf->AddPage();
+
+    /*$pdf->Image( $img_dest . 'Presupuestos-02.png',10,null,190);
+    $pdf->SetFontSize(30);
+    $pdf->Cell(20,6,utf8_decode($doc->title) . ' ' . $doc->version,0,0,'L');
+    $pdf->Ln();
+    $pdf->Ln();
+    $pdf->Ln();*/
+
+	if(strlen($doc->attachment1_url)){
+		$attachment = $uploads_dest . basename($doc->attachment1_url);
+		copy($attachment, $folder_img . basename($doc->attachment1_url)); // for delivery purposes. remove later-
+	}
+
+	// cover
+	$attachment = $uploads_dest . basename($doc->attachment1_url);
+	copy($attachment, $folder_img . basename($doc->attachment1_url)); // for delivery purposes. remove later-
+	$pdf->Image($attachment,10,null,410);
+    $pdf->Ln(20);
+    //$pdf->setY(400);	
+	$pdf->SetFont('Weber-Bold','',25);
+    $pdf->Cell(20,6,utf8_decode($doc->title) . ' v' . $doc->version,0,0,'L');
+	$pdf->Ln(20);
+
+
+	$pdf->SetFont('Weber-Regular','',20);
+	$pdf->Cell(20,6,utf8_decode("Índice"),0,0,'L');
+	$pdf->Ln();
+	// indice
+	foreach ($doc->items as $item_id => $item) {
+		$pdf->SetFont('Weber-Regular','',12);
+	    $pdf->Cell(20,6,utf8_decode($item->title),0,0,'L');
+	    $pdf->Ln();
+	    $pdf->SetFont('Weber-Light','',11);
+	    $pdf->Cell(20,6,utf8_decode($item->excerpt),0,0,'L');
+	    $pdf->Ln();
+	}
+
+    $pdf->Ln();
+    $pdf->Ln();
+    $pdf->Ln();
+    $pdf->Ln();
+
+	// contenido
+	foreach ($doc->items as $item_id => $item) {
+		$title = utf8_decode($item->title);
+		$excerpt = utf8_decode($item->excerpt);
+		$desc_att1 = utf8_decode($item->desc_att1);
+		$desc_att2 = utf8_decode($item->desc_att2);
+		$desc_att3 = utf8_decode($item->desc_att3);
+	    $pdf->SetFont('Weber-Regular','',18);
+
+		if(strpos($title, " ") < 3){
+			$pdf->SetFontSize(22);
+		}
+		
+	    $pdf->Cell(20,6,$title,0,0,'L');
+	    $pdf->Ln();
+	    $pdf->Ln();
+	    $pdf->SetFontSize(14);
+	    $pdf->MultiCell(180,6,$excerpt,0,'L',0);
+	    $pdf->Ln();
+	    $pdf->Ln();
+
+		if(strlen($item->attachment1_url)){
+			$attachment = $uploads_dest . basename($item->attachment1_url);
+			copy($attachment, $folder_img . basename($item->attachment1_url)); // for delivery purposes. remove later-
+			$pdf->Image($attachment,10,null,200);
+			$pdf->SetFont('Weber-LightItalic','',8);
+		    $pdf->Cell(20,6,$desc_att1,0,0,'L');
+		}
+
+		if(strlen($item->attachment2_url)){
+			$attachment = $uploads_dest . basename($item->attachment2_url);
+			copy($attachment, $folder_img . basename($item->attachment2_url)); // for delivery purposes. remove later-
+			$pdf->Image($attachment,10,null,200);
+			$pdf->SetFont('Weber-LightItalic','',8);
+		    $pdf->Cell(20,6,$desc_att2,0,0,'L');
+		}
+
+	    $pdf->Ln();
+	    $pdf->Ln();
+	    $pdf->Ln();
+	    $pdf->Ln();
+
+		$string = \slugify($item->title);
+		$name = preg_replace("/[^a-zA-Z\-]/", "", $string);
+		$docitem = $container["spot"]->mapper("App\DocItem")->first(['id' => $item->id]);
+		$docitem->data(['name' => $name]);
+		$container["spot"]->mapper("App\DocItem")->save($docitem);
+
+		$pdf->SetFontSize(14);
+	    $pdf->MultiCell(180,6,utf8_decode(strip_tags($item->comment)),0,'L',0);
+	    $pdf->Ln();
+	    $pdf->Ln();
+	}
+
+
+    /**/
+
+
+    $fractal = new Manager();
+    $fractal->setSerializer(new DataArraySerializer);
+    $resource = new Item($doc, new Doc);
+    $data = $fractal->createData($resource)->toArray();
+
+    $view->offsetSet('doc', $doc);
+    $html = $view->fetch("docs/doc.html",$data);
+    \writeHTML($html_file,$html);
+
+
+	$pdf->Output($docs_dest . $doc->name . '/' . $doc->name . '.pdf','F');
+}

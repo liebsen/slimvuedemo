@@ -1,0 +1,45 @@
+{% extends "layouts/default.html" %}
+
+{% block head %}
+
+  	<title>Share this tool</title>
+  	<meta name="description" content="You've refocused! on The Blue Ocean Company">
+
+{% endblock %}
+
+{% block body %}
+
+	<body class="home hallofrefocuses production">
+		
+		<!-- Page contents -->
+		<div role="main" id="container">
+			<div id="notices"></div>
+			
+			<div id="pagewrapper">
+				
+				{% include 'header.html' %}
+				
+				<div id="content">
+					<div class="content">
+						<h1>Share this<br /><span class="em">tool</span></h1>
+					        <p>Are your beliefs holding you back from achieving your goals? Would you like to make a change in your life, but can’t seem to make it happen?</p>
+
+					        <p><strong>ReFocus: Change Your Focus, Change Your Life</strong></p>
+					        <br>
+					        <br>
+					        <br>
+					        {% include 'sharebuttons.html' %}
+							
+
+					</div>
+
+					<ul class="buttonbar">
+						<li><a href="/about" class="button white">Learn More</a></li>
+						<li><a href="{{baseurl}}/rf/compose" class="button">ReFocus now</a></li>
+					</ul>					
+				</div>
+			</div>
+		</div>
+	</body>
+
+{% endblock %}

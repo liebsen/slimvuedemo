@@ -1,0 +1,45 @@
+{% extends "layouts/documentation.html" %}
+
+{% block body %}
+
+  <div class="container docs">
+    <div class="content">
+      <h1>Índice</h1>
+    {% for item in doc.items %}
+      <p>
+        <a href="#{{ item.name }}">
+      {% if '. ' in item.title %}
+        <h3>{{ item.title }}</h3>
+      {% else %}
+        <strong>{{ item.title }}</strong>
+      {% endif %}
+        </a> 
+        <span>{{ item.excerpt }}</span>
+      </p>
+    {% endfor %}
+    </div>  
+    <hr>
+    <div class="content">
+      <h1>Contenido</h1>
+  {% for item in doc.items %}
+      <a id="{{ item.name }}"></a>
+      <div class="control-group">&nbsp;</div>
+      <div class="control-group">&nbsp;</div>
+
+      <h1>{{ item.title }}</h1>
+      <h3>{{ item.excerpt }}</h3>
+
+      {{ item.comment | raw }}
+
+      {% if item.attachment1_url %}
+        <img src="{{ item.attachment1_url }}"><br>
+        <small class="is-italic">{{ item.desc_att1 }}</small>
+        <div class="control-group">&nbsp;</div>
+        <div class="control-group">&nbsp;</div>
+      {% endif %}
+
+  {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}              

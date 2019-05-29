@@ -1,0 +1,557 @@
+@font-face{
+    font-family:'Weber';
+    src:url(/fonts/weber/weber-light-webfont.woff2) format("woff2"),url(/fonts/weber/weber-light-webfont.woff) format("woff");
+    font-weight:300;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber';
+    src:url(/fonts/weber/weber-lightitalic-webfont.woff2) format("woff2"),url(/fonts/weber/weber-lightitalic-webfont.woff) format("woff");
+    font-weight:300;
+    font-style:italic;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber';
+    src:url(/fonts/weber/weber-regular-webfont.woff2) format("woff2"),url(/fonts/weber/weber-regular-webfont.woff) format("woff");
+    font-weight:normal;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber';
+    src:url(/fonts/weber/weber-regularitalic-webfont.woff2) format("woff2"),url(/fonts/weber/weber-regularitalic-webfont.woff) format("woff");
+    font-weight:normal;
+    font-style:italic;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber';
+    src:url(/fonts/weber/weber-medium-webfont.woff2) format("woff2"),url(/fonts/weber/weber-medium-webfont.woff) format("woff");
+    font-weight:500;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber';
+    src:url(/fonts/weber/weber-mediumitalic-webfont.woff2) format("woff2"),url(/fonts/weber/weber-mediumitalic-webfont.woff) format("woff");
+    font-weight:500;
+    font-style:italic;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber';
+    src:url(/fonts/weber/weber-bold-webfont.woff2) format("woff2"),url(/fonts/weber/weber-bold-webfont.woff) format("woff");
+    font-weight:700;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber';
+    src:url(/fonts/weber/weber-bolditalic-webfont.woff2) format("woff2"),url(/fonts/weber/weber-bolditalic-webfont.woff) format("woff");
+    font-weight:700;
+    font-style:italic;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber Brush';
+    src:url(/fonts/weber/weber-brush-webfont.woff2) format("woff2"),url(/fonts/weber/weber-brush-webfont.woff) format("woff");
+    font-weight:normal;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Weber Name';
+    src:url(/fonts/weber/weber-name-webfont.woff2) format("woff2"),url(/fonts/weber/weber-name-webfont.woff) format("woff");
+    font-weight:normal;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH';
+    src:url(/fonts/weber/th-weber-light-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-light-webfont.woff) format("woff");
+    font-weight:300;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH';
+    src:url(/fonts/weber/th-weber-lightitalic-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-lightitalic-webfont.woff) format("woff");
+    font-weight:300;
+    font-style:italic;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH';
+    src:url(/fonts/weber/th-weber-regular-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-regular-webfont.woff) format("woff");
+    font-weight:normal;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH';
+    src:url(/fonts/weber/th-weber-regularitalic-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-regularitalic-webfont.woff) format("woff");
+    font-weight:normal;
+    font-style:italic;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH';
+    src:url(/fonts/weber/th-weber-medium-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-medium-webfont.woff) format("woff");
+    font-weight:500;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH';
+    src:url(/fonts/weber/th-weber-mediumitalic-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-mediumitalic-webfont.woff) format("woff");
+    font-weight:500;
+    font-style:italic;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH';
+    src:url(/fonts/weber/th-weber-bold-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-bold-webfont.woff) format("woff");
+    font-weight:700;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH';
+    src:url(/fonts/weber/th-weber-bolditalic-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-bolditalic-webfont.woff) format("woff");
+    font-weight:700;
+    font-style:italic;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH Brush';
+    src:url(/fonts/weber/th-weber-brush-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-brush-webfont.woff) format("woff");
+    font-weight:normal;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'WeberTH Name';
+    src:url(/fonts/weber/th-weber-name-webfont.woff2) format("woff2"),url(/fonts/weber/th-weber-name-webfont.woff) format("woff");
+    font-weight:normal;
+    font-style:normal;
+    font-display:fallback;
+}
+@font-face{
+    font-family:'Myanmar3';
+    src:local("Myanmar3"),url(/sites/gb/themes/custom/weber_base/assets/fonts/myanmar3/mm3-multi-os-webfont.ttf) format("truetype");
+    font-weight:normal;
+    font-style:normal;
+    font-display:fallback;
+}
+
+body {
+  font-family: 'Weber', sans-serif;
+  background: #ffec01;
+  color: #674a04;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+h1 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 28px;
+  line-height: 40px;
+  font-weight: 500;
+}
+
+h3 {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 500;
+}
+
+h4 {
+  margin-top: 35px;
+  margin-bottom: 0px;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+h5 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.header {
+  position: fixed;
+  z-index: 10;
+  padding: 0 15px;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  height: 60px;
+  background-color: #42abf3;
+}
+
+.logo-developers {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo-developers img {
+  height: 40px;
+}
+
+.logo-developers--txt {
+  margin-left: 10px;
+  font-size: 1.25rem;
+}
+
+.principal-title {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 350px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #42abf3;
+}
+
+.principal-title--h1 {
+  width: 60%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #fff;
+  font-weight: 300;
+  text-align: center;
+}
+
+.senders-api--logo {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.footer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.footer--link {
+  color: #42abf3;
+  text-decoration: none;
+}
+
+.header__contaniner {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.header-links--link {
+  margin-right: 10px;
+  margin-left: 10px;
+  opacity: 0.6;
+  -webkit-transition: opacity 200ms ease;
+  transition: opacity 200ms ease;
+  color: #fff;
+  font-weight: 300;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header-links--link:hover {
+  opacity: 1;
+}
+
+.content-page {
+  margin-bottom: 100px;
+}
+
+.content-page--h {
+  display: block;
+  width: 60%;
+  margin-top: 60px;
+  margin-right: auto;
+  margin-left: auto;
+  font-weight: 300;
+  text-align: center;
+}
+
+.form-wrapper {
+  display: block;
+  width: 40%;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.input {
+  border: 1px solid #e6e6e8;
+  border-radius: 4px;
+  background-color: #fafafa;
+}
+
+.button {
+  padding-right: 40px;
+  padding-left: 40px;
+  float: right;
+  border-radius: 6px;
+  background-color: #ff5760;
+  -webkit-transition: background-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
+}
+
+.button:hover {
+  background-color: #42abf3;
+}
+
+.succes {
+  background-color: #fff;
+}
+
+.error {
+  border-top: 1px solid #ff5760;
+  background-color: transparent;
+  color: #ff5760;
+  text-align: center;
+}
+
+.branding-header {
+  height: 300px;
+  background-color: #42abf3;
+}
+
+.logo {
+  display: block;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.developers--p {
+  line-height: 24px;
+}
+
+.code {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff78f;
+}
+
+.code--p {
+  margin-bottom: 0px;
+  font-family: Monaco, Inconsolata, monospace;
+  color: #4e5d67;
+  font-size: 14px;
+}
+
+.container {
+  margin-top: 80px;
+  padding-bottom: 60px;
+  padding-left: 10px;
+  padding-right: 10px;  
+}
+
+.link {
+  color: #42abf3;
+  text-decoration: none;
+}
+
+.client-auth {
+  text-align: center;
+}
+
+table label {
+  height: 38px;
+  padding: 8px 12px; 
+}
+table col[class*="col-"] {
+  position: static;
+  display: table-column;
+  float: none;
+}
+table td[class*="col-"],
+table th[class*="col-"] {
+  position: static;
+  display: table-cell;
+  float: none;
+}
+
+
+table {
+  background-color: #fff78f;
+}
+caption {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: #777;
+  text-align: left;
+}
+th {
+  text-align: left;
+}
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+.table > tbody + tbody {
+  border-top: 2px solid #ddd;
+}
+.table .table {
+  background-color: #fff;
+}
+
+.table-striped > tbody > tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.w-badge {
+  color: #fff;
+  text-align: center;
+  background-color: #ccc;
+  border-radius: 3px;
+  padding: 6px 8px 6px 6px;
+  font-size: 14px;
+  line-height: 14px;
+  min-width: 44px;
+  display: inline-block;  
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.w-badge.get {
+  background-color: #d9edf7;
+  color: #31708f;
+}
+
+
+.w-badge.post {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.m-toggle {
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+pre {
+  max-height: 300px;
+  font-family: Monaco, Inconsolata, monospace;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 20px;  
+  border: 1px solid #e2e2e2;
+  color: #4e5d67;
+  font-size: 14px;
+}
+
+code {
+  display: block;
+  max-height: 300px;
+  color: #4e5d67;
+  white-space: pre;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff78f;
+}
+
+code p {
+  font-family: Monaco, Inconsolata, monospace;
+  color: #4e5d67;
+  font-size: 14px;
+}
+
+.overlemon {
+  text-shadow: 0 0 4px white;
+}
+
+@media (max-width: 767px) {
+  .principal-title--h1 {
+    width: 80%;
+  }
+  .content-page--h {
+    width: 80%;
+  }
+  .form-wrapper {
+    width: 60%;
+  }
+}
+
+@media (max-width: 479px) {
+  .principal-title--h1 {
+    width: 90%;
+  }
+  .content-page--h {
+    width: 90%;
+  }
+  .form-wrapper {
+    width: 90%;
+  }
+}
+

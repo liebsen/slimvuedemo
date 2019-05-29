@@ -1,0 +1,9 @@
+[2019-05-29 16:19:09] [CRITICAL]: No resource was found. 
+[2019-05-29 16:35:42] [CRITICAL]: No resource was found. 
+[2019-05-29 16:36:02] [CRITICAL]: No resource was found. 
+[2019-05-29 16:48:48] [CRITICAL]: No resource was found. 
+[2019-05-29 16:48:51] [CRITICAL]: No resource was found. 
+[2019-05-29 16:49:25] [CRITICAL]: Update error: Unknown fields provided for App\User: 'phone', 'email_encoded', 'full_name', 'member_since', 'token' 
+[2019-05-29 16:53:12] [CRITICAL]: Update error: Unknown fields provided for App\User: 'phone', 'email_encoded', 'full_name', 'member_since', 'token' 
+[2019-05-29 16:54:39] [CRITICAL]: Update error: Unknown fields provided for App\User: 'phone', 'email_encoded', 'full_name', 'member_since' 
+[2019-05-29 16:58:40] [CRITICAL]: No resource was found. 

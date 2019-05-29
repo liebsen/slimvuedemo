@@ -1,0 +1,81 @@
+{% extends "layouts/default.html" %}
+
+{% block head %}
+
+  	<title>You have refocused!</title>
+  	<meta name="description" content="You've refocused! on The Blue Ocean Company">
+  	<style>
+
+		.home {
+			background-color: white;
+		}		
+
+		#content {
+			margin-left: 100px;
+		}		
+		
+		.newreframeBe div div.content, .newreframeOp div div.content {
+		    padding-bottom: 50px;
+		}
+
+  	</style>
+
+{% endblock %}
+
+{% block body %}
+
+	<body class="home hallofrefocuses production">
+
+		<!-- Page contents -->
+		<div role="main" id="container">
+			<div id="notices"></div>
+			<div id="pagewrapper ">
+
+				<div id="content" style="width:1000px">
+					<div class="content contentHall">
+						<h1 class="pushdown">You have <br /><span class="em">refocused!</span></h1>
+
+						<div id="hallContainer">
+							<div class="supportBe">	
+							{% for i, item in reframes %}
+								<div class="newreframeBe">
+								{% for j, text in item.beliefs %}
+									{% if j < 4 %}
+									<div class="new {% if j == 0%}first{% elseif j == 3 %}last{% else %}middle{{j}}{% endif %} circle-text" id="circle-2">
+										<div class="content">{{ text }}</div>
+									</div>
+									{% endif %}
+								{% endfor %}
+								</div>
+								<div class="reframe">
+									<div class="belief circle-text" id="circle-1">
+										<div class="content">{{ item.belief }}</div>
+									</div>
+									<div class="belief opposite circle-text" id="circle-1">
+										<div class="content">{{ item.opposite }}</div>
+									</div>
+								</div>
+								<div class="newreframeOp">
+								{% for h, text in item.opposites %}
+									{% if h < 4 %}
+									<div class="new {% if h == 0%}firstOp{% elseif h == 3 %}lastOp{% else %}middle{{h}}Op{% endif %} circle-text" id="circle-2">
+										<div class="content">{{ text }}</div>
+									</div>
+									{% endif %}
+								{% endfor %}
+								</div>
+							{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+{% endblock %}
+
+{% block assets %}
+  	<script type="text/javascript" src="{{assetspath}}/js/78b2d3.js?_=f593fe22b3f73" charset="UTF-8"></script>
+	<script type="text/javascript" src="{{assetspath}}/js/66951dae.js?_=f593fe22b3f73" charset="UTF-8"></script>
+{% endblock %}

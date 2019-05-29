@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Wed Feb 08 2017 17:01:40 GMT+0000 (UTC)  -->
+<html data-wf-page="589b3c946dc290a6649eaf3a" data-wf-site="5898bd85176071a2715d75b8" lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Puntoweberplast.com API</title>
+  <meta content="Puntoweberplast.com API documentation" name="description">
+  <meta content="Puntoweberplast.com API documentation" property="og:title">
+  <meta content="Puntoweberplast.com API documentation" property="og:description">
+  <meta content="summary" name="twitter:card">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/refocus.webflow.css" rel="stylesheet" type="text/css">
+  <script src="js/modernizr.js" type="text/javascript"></script>
+  <link href="images/favicon-32x32.png" rel="shortcut icon" type="image/x-icon">
+  <link href="images/favicon.png" rel="apple-touch-icon">
+</head>
+<body>
+  <div class="header">
+    <div class="header__contaniner">
+      <a class="logo-developers w-inline-block" href="index.html"><img src="images/logo.svg">
+        <div class="logo-developers--txt">Developers</div>
+      </a>
+      <div class="header-links"><a class="header-links--link" href="api-docs.html">API docs</a>
+      </div>
+    </div>
+  </div>
+  <div class="container w-container">
+    <h1>Puntoweberplast API documentation. For more information, you may want to visit <a href="http://puntoweberplast.com" class="link">Puntoweberplast</a>. Go for it!</h1>
+    <div class="non-authorized-client">
+    <h3>Authenticate</h3>
+    <p class="developers--p">You must have an account previously created and offered by the administration of Puntoweberplast.com. <a class="link" href="http://puntoweberplast.com/sign-in">SIGN IN Now at Puntoweberplast</a>.
+      <br>Once invited, you will receive in your email a reminder of your password generated exclusively for you by our server.
+    </p>
+    </div>
+    <h3>Headers</h3>
+    <p class="developers--p">Puntoweberplast uses JSON Web Token JWT for authentication purposes. You can <a href="https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec">learn more about JWT here</a></p>
+    <div class="code">
+      <p class="code--p client-auth-code">Authorization: Bearer {token}</p>
+    </div>
+    <h3>Methods</h3>
+    <p class="developers--p">These are the methods of Puntoweberplast. Those methods that send requests with Authorization Header are restricted to Puntoweberplast.com clients and need you to previously <a href="index.html">authenticate here</a>.</p>
+    <div class="wiki"></div>
+    <h3>Endpoints</h3>
+    <p class="developers--p">We have an environment available at this time.</p>
+    <div class="code">
+      <p class="code--p">https://puntoweberplast.com/v1</p>
+    </div>
+    <p></p>
+    <h3>Important</h3>
+    <p class="developers--p">Please do not share this URL with people outside the project. Thank you.</p>
+  </div>
+  <div class="footer">
+    <div class="w-container">
+      <div>Back to <a href="http://puntoweberplast.com/" class="footer--link">Puntoweberplast </a> &nbsp; <span class="overlemon">🍋</span> &nbsp; Yet another
+        <a href="https://overlemon.glitch.me" target="_blank" class="footer--link" title="We are a project factory">Overlemon</a> project.
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+  <script src="js/jsrender.min.js" type="text/javascript"></script>
+  <script src="js/config.js" type="text/javascript"></script>
+  <script src="js/model.js" type="text/javascript"></script>
+  <script src="js/api-docs.js" type="text/javascript"></script>
+
+  <script id="model" type="text/x-jsrender">
+    <h4 class="m-toggle"><span class="w-badge {{:method}}">{{:method}}</span>&nbsp;&nbsp;{{:url}} <span title="Requires privileges">{{:~getAccessBadge(headers)}}</span><span class="w-icon-arrow-down" style="margin-left: 6px;"></span></h4>
+    <div class="method {{:method}}{{:url}} w-hidden">
+      <p>{{:description}}</p>
+      <div class="w-tabs" data-duration-in="300" data-duration-out="100">
+        <div class="w-tab-menu">
+          <a class="w-tab-link w--current w-inline-block" data-w-tab="cURL {{:#index+1}}">
+            <div>cURL</div>
+          </a>
+          <a class="w-tab-link w-inline-block" data-w-tab="Node {{:#index+1}}">
+            <div>Node</div>
+          </a>
+          <a class="w-tab-link w-inline-block" data-w-tab="PHP {{:#index+1}}">
+            <div>PHP</div>
+          </a>
+        </div>
+        <div class="w-tab-content">
+
+          <div class="w-tab-pane w--tab-active tab" data-w-tab="cURL {{:#index+1}}">        
+          <code><p>curl -X {{:method}} {{if headers.length}} -H {{for headers}} '{{:name}}': '{{:~getHeaders(value)}}' {{/for}}} {{/if}}{{if body.length && body.length && body[0].name != 'id'}} --data { {{for body}} {{:name}}: "{{:placeholder}}"{{if (#index < #parent.parent.data.body.length -1)}},{{/if}} {{/for}}},{{/if}} "{{:~getEndpoint()}}{{:~getUrl(url,body)}}"</p></code>
+          </div>
+
+          <div class="w-tab-pane" data-w-tab="Node {{:#index+1}}">        
+          <code><p>var request = require('request');
+request.{{:method}}({{{if headers.length}}
+  headers: {
+  {{for headers}} '{{:name}}': '{{:~getHeaders(value)}}'
+  {{/for}}},{{/if}}{{if body.length && body.length && body[0].name != 'id'}}
+  form: {
+  {{for body}}  {{:name}}: '{{:placeholder}}'{{if (#index < #parent.parent.data.body.length -1)}},{{/if}} // {{:description}}
+  {{/for}}},{{/if}}
+  url: '{{:~getEndpoint()}}{{:~getUrl(url,body)}}',
+  function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body)
+    }
+  }
+})          </p></code>
+          </div>
+
+          <div class="w-tab-pane" data-w-tab="PHP {{:#index+1}}">
+      <code><p>$ch = curl_init('{{:~getEndpoint()}}{{:~getUrl(url,body)}}');
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_USERAGENT, 'Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36');
+{{if headers.length}}curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',{{for headers}}
+    '{{:name}}: {{:~getHeaders(value)}}' // {{:description}}{{/for}}
+]);{{/if}}
+{{if body.length && method=='post' && body.length && body[0].name != 'id'}}
+$curl_post_data = [{{for body}}
+  '{{:name}}' => "{{:placeholder}}"{{if (#index < #parent.parent.data.body.length -1)}},{{/if}} // {{:description}}{{/for}}
+];{{/if}}{{if method=='post'}}
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);{{/if}}
+$data = curl_exec($ch);
+$info = curl_getinfo($ch);
+curl_close($ch);</p></code>    
+          </div>
+
+        </div>
+      </div>           
+      <form class="method-form" method="{{:method}}" action="{{:url}}">
+      {{if headers.length}}
+        <table class="table table-striped">
+          <tr>
+            <th>Header</th>
+            <th>Valor</th>
+            <th>Descripción</th>
+            <th>Data Type</th>
+          </tr>
+        {{for headers}}
+          <tr>
+            <td>
+              <label>{{:name}}</label>
+            </td>
+            <td>
+              <input class="w-input" type="text" name="header--{{:name}}" value="{{:~getHeaders(value)}}" {{if required}}{{:required}}{{/if}}>
+            </td>
+            <td>
+              <p>{{:description}}</p>
+            </td>
+            <td>
+              <em>Header</em>
+            </td>            
+          </tr>
+        {{/for}}
+        </table>
+      {{/if}}
+      {{if body.length}}
+        <table class="table table-striped">
+          <tr>
+            <th>Parámetro</th>
+            <th>Valor</th>
+            <th>Descripción</th>
+            <th>Data Type</th>
+          </tr>
+        {{for body}}
+          <tr>
+            <td>
+              <label>{{:name}}</label>
+            </td>
+            <td>
+              <input class="w-input" type="text" name="{{:name}}" placeholder="{{:placeholder}}" value="{{:placeholder}}" {{if required}}{{:required}}{{/if}}>
+            </td>
+            <td>
+              <p>{{:description}}</p>
+            </td>
+            <td>
+              <em>{{:datatype}}</em>
+            </td>
+          </tr>
+        {{/for}}
+        </table>
+      {{/if}}
+ 
+        <button class="w-button" type="submit">Enviar</button>
+      </form>
+      <div class="response w-hidden">
+        <h3>Request URL</h3>
+        <pre class="request-url"></pre>
+        <h3>Response Body</h3>
+        <pre class="response-body"></pre>
+        <h3>Response Code</h3>
+        <pre class="response-code"></pre>
+        <h3>Response Headers</h3>
+        <pre class="response-headers"></pre>
+      </div>
+      <p></p>
+    </div>
+  </script>
+</body>
+</html>

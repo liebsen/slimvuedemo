@@ -1,0 +1,50 @@
+<?php
+
+print "Packing assets...\n";
+
+require __DIR__ . "/vendor/autoload.php";
+
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+//use Patchwork\JSqueeze;
+use MatthiasMullie\Minify;
+
+$dest = __DIR__ . '/' . getenv('APP_PUBLIC');
+//$head = substr(exec('git rev-parse HEAD'),0,7);
+
+array_map('unlink', glob($dest . '/dist/*'));
+
+// App
+// $minifier = new Minify\JS($dest . '/js/vue.js'); dev
+$minifier = new Minify\JS( $dest. '/js/vue.min.js');
+$minifier->add($dest . '/js/vue-router.js');
+$minifier->add($dest . '/js/vue-resource.min.js');
+$minifier->add($dest . '/js/jquery.min.js');
+$minifier->add($dest . '/js/jquery.typer.js');
+$minifier->add($dest . '/js/moment-with-locales.min.js');
+$minifier->add($dest . '/js/jsrender.min.js');
+//$minifier->add($dest . '/js/slick.min.js');
+$minifier->add($dest . '/js/bulma.js');
+$minifier->add($dest . '/js/scrollmap.js');
+$minifier->add($dest . '/js/filters.js');
+$minifier->add($dest . '/js/routes.js');
+$minifier->minify($dest . '/dist/bundle.js');
+
+// css
+$minifier = new Minify\CSS($dest . '/css/bulma.css');
+$minifier->add($dest . '/css/hero.css');
+$minifier->add($dest . '/fonts/modern-pictograms/font.css');
+//$minifier->add($dest . '/css/slick.css');
+//$minifier->add($dest . '/css/slick-theme.css');
+$minifier->add($dest . '/css/tips.css');
+$minifier->minify($dest . '/dist/bundle.css');
+
+/**/
+$minifier = new Minify\JS( $dest. '/js/jquery.min.js');
+$minifier->add($dest . '/js/jsrender.min.js');
+$minifier->add($dest . '/js/moment-with-locales.min.js');
+$minifier->add($dest . '/js/bulma.js');
+$minifier->add($dest . '/js/scrollmap.js');
+//$minifier->add($dest . '/js/app.js');
+$minifier->minify($dest . '/dist/docs.js');

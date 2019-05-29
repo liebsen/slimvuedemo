@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>PuntoWeberPlast - Documentación</title>
+  <link rel="home" href="/">
+  <!-- Page Meta -->
+  <meta name="description" content="Wberplast Documantation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="../../manifest.json">
+  <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../../img/apple-touch-icon.png" type="image/x-icon">
+
+  <!-- Styles -->
+  <link href="../../dist/bundle.css?_={{ts}}" rel="stylesheet" type="text/css">
+  <style>
+    .footer {
+      display: block!important;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar is-fixed-top">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="../../img/logo.svg" alt="Puntoweberplast">
+        </a>
+        <span class="navbar-burger burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-tabs is-right">
+            <ul>
+              <li>
+                <a class="button is-large" href="{{ doc.name }}.pdf">
+                  <span>📝 Descargar PDF</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero-picture fadein" style="background-image:url('{{ doc.attachment1_url }}')">
+    <div class="hero-text">
+      <h1 class="is-uppercase">{{ doc.title }}</h1>
+      <p class="subtitle">{{ doc.excerpt }}</p>
+    </div>
+  </div>
+    
+  {% block body %}{% endblock %}
+
+  <div class="scrollmap">
+    <a href="javascript:scrollUp()" class="navbar-item up"></a>
+    <a href="javascript:scrollDown()" class="navbar-item down"></a>
+  </div>
+
+  <div class="tosprompt">
+    <div class="notification">
+      <!--p class="has-text-weight-semibold">Ads help us run this site</p-->
+      <p>Utilizamos cookies de análisis para mejorar su experiencia y mejorar esta herramienta. No compartimos sus datos personales con otros. <a href="https://putoweberplast.com/politica-de-privacidad">Leer mas</a></p>
+      <div class="button" onclick="tosAgree(this)">Acepto</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <div class="control level-item">
+          <small>2019 Weberplast. Todos los derechos reservados. </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../dist/docs.js?_={{ts}}" type="text/javascript"></script>
+  <script src="../../js/ecmalog.js" type="text/javascript"></script>  
+  <script>
+    var scrollUp= function(){
+      var body = $("html, body");
+      body.stop().animate({scrollTop:0}, 500, 'swing', function() { 
+      });
+    },
+    scrollDown= function(){
+      var body = $("html, body");
+      body.stop().animate({scrollTop:$(document).height()}, 500, 'swing', function() { 
+      });
+    }
+  </script>
+</body>
+</html>

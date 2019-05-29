@@ -1,0 +1,85 @@
+{% extends "layouts/default.html" %}
+
+{% block head %}
+
+  	<title>About ReFocusing</title>
+  	<meta name="description" content="About ReFocus The Blue Ocean Company">
+
+{% endblock %}
+
+{% block body %}
+
+	<body class="home about production">
+		
+		<!-- Page contents -->
+		<div role="main" id="container">
+			<div id="notices"></div>
+			
+			<div id="pagewrapper">
+				
+				{% include 'header.html' %}
+				
+				<div id="content">
+					<div class="content">
+						<h1>About <br /><span class="em">ReFocusing</span></h1>
+						<p>
+							Refocusing is fundamental to The Blue Ocean Company’s development initiatives. It is a powerful process that helps you to identify any limiting beliefs that may be getting in the way of your desire to do something different, and opens up a new path of action for you. The Refocus Tool is based on the technique of cognitive reframing (Aaron T Beck, 1960), the concept of paradigm shifts (Thomas Kuhn, 1962) and the methodology of philosopher Karim Benammar (2012).
+						</p>
+						<p>
+							Feel free to use the Refocus Tool as many times as you wish. Use it with your team, your division, your organisation. Or experience the full blown version in one of The Blue Ocean Company’s transformational programmes. Want to know more?
+						</p>
+						<p>	
+							<a href="mailto:lilian.eilers@theblueoceancompany.com?Subject=The Blue Ocean Company - Refocus">Contact us</a>
+						</p>
+						<p>	
+							<br><br><strong>Change Your Focus, Change Your Life.</strong>
+						</p>
+					</div>
+					
+					<div class="content frame">
+						
+						<h2>Step by step</h2>
+					
+						<div class="carousel advanced steps slow">
+					
+							<div class="viewport">
+								<ul class="overview">
+									<li><img src="{{baseurl}}/img/about_step_1.png" title="Step 1: Define your core belief"></li>
+									<li><img src="{{baseurl}}/img/about_step_2.png" title="Step 2: Look for the supporting beliefs"></li>
+									<li><img src="{{baseurl}}/img/about_step_3.png" title="Step 3: Find the opposites of your supporting beliefs"></li>
+									<li><img src="{{baseurl}}/img/about_step_4.png" title="Step 4: Summarize the opposites in a new core belief"></li>
+								</ul>
+							</div>
+					
+							<ul class="pager">
+								<li><a rel="0" class="pagenum" href="#"></a></li>
+								<li><a rel="1" class="pagenum" href="#"></a></li>
+								<li><a rel="2" class="pagenum" href="#"></a></li>
+								<li><a rel="3" class="pagenum" href="#"></a></li>
+							</ul>
+					
+							<div class="prevnext">
+								<a class="buttons prev" href="#">Previous</a>
+								<a class="buttons next" href="#">Next</a>
+								<div class="label"></div>
+							</div>
+						</div>
+					</div>
+					<ul class="buttonbar">
+						<li><a href="{{baseurl}}/rf/compose" class="button">ReFocus now</a></li>
+						<li><a href="{{baseurl}}/share" class="button white">Share this tool</a></li>
+					</ul>
+				</div>
+			
+				<footer></footer>			</div>		</div>
+
+		<!-- Templates used in Backbone -->
+
+	</body>
+
+{% endblock %}
+
+{% block assets %}
+  	<script type="text/javascript" src="{{assetspath}}/js/78b2d3.js?_=f593fe22b3f73" charset="UTF-8"></script>
+	<script type="text/javascript" src="{{assetspath}}/js/66951dae.js?_=f593fe22b3f73" charset="UTF-8"></script>
+{% endblock %}
