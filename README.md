@@ -1,4 +1,4 @@
-# Weber Webapp [website](http://weber.com)
+# Slim Vue Demo
 
 ## Server Requirements
 
