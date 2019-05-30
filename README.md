@@ -57,7 +57,7 @@ Now, your project must be up and running.
 
 ## Deploying
 
-### Before you commit to bitbucket.com run dist script.
+### Before you commit run dist script
 
 ``` bash
 php dist
@@ -65,7 +65,7 @@ php dist
 
 ## Documentation
 
-### Before you commit to bitbucket.com run dist script.
+### Publish your documentation
 
 ``` bash
 php docs
