@@ -91,11 +91,6 @@
         <div class="hero-text">
           <h1 class="title is-uppercase" v-html="data.title"></h1>
           <p class="subtitle" v-html="data.intro"></p>
-          <div v-if="data.button_link" class="content">
-            <a class="button section-button" bypass="true" :href="data.button_link" :title="data.button_text">
-              <span v-html="data.button_label"></span>
-            </a>
-          </div>          
         </div>
       </div>
       <div v-if="data.slug != '/'" class="hero-body">
