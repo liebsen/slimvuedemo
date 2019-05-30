@@ -93,7 +93,7 @@ class AdminerTheme
 				})
 			<?php endif;?>
 
-				$("#h1").attr("href","https://refocus.the-blue-ocean-company.com")
+				$("#h1").attr("href","/")
 				
 				$("input,textarea").each(function(){
 					var name = $(this).attr("name")||""
@@ -318,6 +318,6 @@ class AdminerTheme
 	}
 
 	function database() {
-		return 'epicadv197_reframe';
+		return 'slimvuedemo';
 	}	
 }

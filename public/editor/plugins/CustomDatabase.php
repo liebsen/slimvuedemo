@@ -2,6 +2,6 @@
 
 class CustomDatabase extends Adminer {
   function database() {
-    return 'mercedesbenz';
+    return 'slimvuedemo';
   }
 }

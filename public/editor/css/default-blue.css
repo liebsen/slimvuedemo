@@ -473,7 +473,7 @@ h1 #h1{
     display:inline-block;
     padding:0;
     margin-top: 20px;
-	background-image:url("../images/logorefocus.png");
+	background-image:url("../images/logo.png");
     background-position: center center;
     background-repeat: no-repeat;
 	background-size: contain;
@@ -508,7 +508,7 @@ h1 #h1{
     overflow-y:auto;
     overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
-    background:#005890;
+    background:#ff5384;
     z-index:100
 }
 #menu #dbs{
