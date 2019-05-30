@@ -293,3 +293,26 @@
   80%{opacity:0}
   100%{opacity:1}
 }
+.hero-picture {
+  min-height: 50vh;
+  padding: 1.25rem;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.hero-picture .title,
+.hero-picture .subtitle {
+  text-shadow: 0 0 2px #333;
+  color: #fff;
+}
+
+.hero-picture .title {
+  font-size: 2.5rem;
+  padding: 0;
+  padding-top: 7rem;
+}
+
+.hero-picture .subtitle {
+  font-size: 1.5rem;
+}

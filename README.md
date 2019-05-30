@@ -1,4 +1,4 @@
-# Slim Vue Demo
+# Slim Vue Scaffolding
 
 ## Server Requirements
 

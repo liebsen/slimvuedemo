@@ -45,16 +45,16 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <router-link to="/sign-up" v-show="!filters.token().token" class="button is-primary">
-                <strong>Crear cuenta</strong>
+              <router-link to="/sign-up" v-show="!filters.token().token" class="button is-primary is-outlined">
+                <span>Crear cuenta</span>
               </router-link>
-              <router-link to="/account" v-show="filters.token().token" class="button is-primary">
-                <strong>Mi cuenta</strong>
+              <router-link to="/account" v-show="filters.token().token" class="button is-primary is-outlined">
+                <span>Mi cuenta</span>
               </router-link>
-              <a href="#" @click="filters.endSessionWithConfirm()" v-show="filters.token().token" class="button is-primary">
-                <strong>Cerrar sesión</strong>
+              <a href="#" @click="filters.endSessionWithConfirm()" v-show="filters.token().token" class="button is-danger is-outlined">
+                <span>Cerrar sesión</span>
               </a>
-              <router-link to="/sign-in" v-show="!filters.token().token" class="button is-light">
+              <router-link to="/sign-in" v-show="!filters.token().token" class="button is-light is-outlined">
                 Iniciar sesión
               </router-link>
             </div>
@@ -89,7 +89,7 @@
       <div v-if="data.slug === '/'" v-html="data.content"></div>
       <div v-if="data.slug != '/'" class="hero-picture fadein" v-if="data.picture" :style="'background-image:url(\'' + data.picture + '\')'">
         <div class="hero-text">
-          <h1 class="is-uppercase" v-html="data.title"></h1>
+          <h1 class="title is-uppercase" v-html="data.title"></h1>
           <p class="subtitle" v-html="data.intro"></p>
           <div v-if="data.button_link" class="content">
             <a class="button section-button" bypass="true" :href="data.button_link" :title="data.button_text">
