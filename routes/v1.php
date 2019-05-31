@@ -16,6 +16,7 @@ use App\Config;
 use App\Email;
 use App\Section;
 use App\Post;
+use App\Todo;
 
 $app->group('/v1', function() {
 
@@ -114,6 +115,83 @@ $app->group('/v1', function() {
     });
 
     $this->group('/account', function() {
+
+        $this->get("/todos", function ($request, $response, $arguments) {
+
+            if (false === $this->token->decoded->uid) {
+                throw new ForbiddenException("Token expired or invalid.", 403);
+            }
+
+
+            $mapper = $this->spot->mapper("App\Todo")
+                ->where(['user_id' => $this->token->decoded->uid ])
+                ->order(['id' => "DESC"]);
+
+            /* Serialize the response data. */
+            $fractal = new Manager();
+            $fractal->setSerializer(new DataArraySerializer);
+            $resource = new Collection($mapper, new Todo);
+            $data = $fractal->createData($resource)->toArray()['data'];
+
+            return $response->withStatus(200)
+                ->withHeader("Content-Type", "application/json")
+                ->write(json_encode($data));
+
+        });
+
+        $this->get("/todos/{id}", function ($request, $response, $arguments) {
+
+            if (false === $this->token->decoded->uid) {
+                throw new ForbiddenException("Token expired or invalid.", 403);
+            }
+
+            $mapper = $this->spot->mapper("App\Todo")
+                ->where(['user_id' => $this->token->decoded->uid ])
+                ->where(['id' => $request->getAttribute('id') ])
+                ->first();
+
+            /* Serialize the response data. */
+            $fractal = new Manager();
+            $fractal->setSerializer(new DataArraySerializer);
+            $resource = new Item($mapper, new Todo);
+            $data = $fractal->createData($resource)->toArray()['data'];
+
+            return $response->withStatus(200)
+                ->withHeader("Content-Type", "application/json")
+                ->write(json_encode($data));            
+        });
+
+        $this->put("/todos[/{id:.*}]", function ($request, $response, $arguments) {
+
+            if (false === $this->token->decoded->uid) {
+                throw new ForbiddenException("Token expired or invalid.", 403);
+            }
+
+            $body = $request->getParsedBody();
+            $body['user_id'] = $this->token->decoded->uid;
+
+            if(empty($request->getAttribute('id'))){
+                $mapper = new App\Todo();
+            } else {
+                $mapper = $this->spot->mapper("App\Todo")
+                    ->where(['user_id' => $this->token->decoded->uid ])
+                    ->where(['id' => (int) $request->getAttribute('id') ])
+                    ->first();
+            }
+
+            $mapper->data($body);
+            $this->spot->mapper("App\Todo")->save($mapper);
+
+            /* Serialize the response data. */
+            $fractal = new Manager();
+            $fractal->setSerializer(new DataArraySerializer);
+            $resource = new Item($mapper, new Todo);
+            $data = $fractal->createData($resource)->toArray()['data'];
+
+            return $response->withStatus(200)
+                ->withHeader("Content-Type", "application/json")
+                ->write(json_encode($data));            
+        });
 
         $this->post("/password", function ($request, $response, $arguments) {
 

@@ -1,5 +1,5 @@
 (function() {
-    var burger = document.querySelector('.burger');
+    var burger = document.querySelector('.menu-burger');
     var menu = document.querySelector('#'+burger.dataset.target);
 
     tosAgree = function(target){
@@ -11,9 +11,9 @@
       },1000)
     }
 
-    burger.addEventListener('click', function() {
-      burger.classList.toggle('is-active');
-      menu.classList.toggle('is-active');
+    $(document).on('click','.menu-burger, .menu-items',function() {
+      $('.menu-bg, .menu-items, .menu-burger').toggleClass('fs');
+      $('.menu-burger').text() == "☰" ? $('.menu-burger').text('✕') : $('.menu-burger').text('☰');      
     });
 
     if(!localStorage.getItem("tosagree")){

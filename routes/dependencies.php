@@ -31,6 +31,7 @@ $container['view'] = function ($c) {
     $basePath = rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');
     $view->offsetSet('rev_parse', substr(exec('git rev-parse HEAD'),0,7));
     $view->offsetSet('ts', time());
+    $view->offsetSet('mods', explode(',',getenv('APP_MODS')));
     $view->offsetSet('localhost', $localhost);
     $view->offsetSet('appver', getenv('APP_VERSION'));
     $view->offsetSet('baseurl', $baseurl);

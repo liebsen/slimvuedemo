@@ -48,7 +48,7 @@ Seed your dababase with basic data
 
 ``` bash
 cd /var/www/slimvuedemo/data
-mysql -u root -p slimvue < slimvue.sql
+mysql -u root -p slimvuedemo < slimvuedemo.sql
 ```
 
 

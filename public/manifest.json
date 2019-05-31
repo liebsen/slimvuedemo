@@ -1,6 +1,6 @@
 {
-  "short_name": "refocus.the-blue-ocean-company.com",
-  "name": "ReFocus TBOC",
+  "short_name": "slimvuedemo",
+  "name": "Slim 3 Vue 2 Scaffolding Demo",
   "icons": [
     {
       "src": "launcher-icon-4x.png",
