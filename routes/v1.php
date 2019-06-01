@@ -169,6 +169,7 @@ $app->group('/v1', function() {
 
             $body = $request->getParsedBody();
             $body['user_id'] = $this->token->decoded->uid;
+            $body['done'] = $body['done'] === 'true' ? 1: 0;
 
             if(empty($request->getAttribute('id'))){
                 $mapper = new App\Todo();

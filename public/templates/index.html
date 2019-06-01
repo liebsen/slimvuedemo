@@ -158,9 +158,6 @@
           <div v-show="!loading">
             <div class="columns is-vcentered">
               <div class="column has-text-centered">
-                <span>ID</span>
-              </div>
-              <div class="column has-text-centered">
                 <span>Todo</span>
               </div>
               <div class="column has-text-centered">
@@ -169,20 +166,23 @@
               <div class="column has-text-centered">
                 <span>Hecho</span>
               </div>
+              <div class="column has-text-centered">
+                <span></span>
+              </div>
             </div>
             <div class="columns" v-for="todo in data">
-              <div class="column">
-                <div class="is-link" v-html="todo.id"></div>
-              </div>
               <div class="column">
                 <div class="is-link" v-html="todo.title"></div>
               </div>
               <div class="column">
-                <a class="is-link" @click="more" :id="todo.id">Ver más</a>
+                <div class="is-link" v-html="todo.comment"></div>
               </div>
               <div class="column">
                 <span v-if="!todo.done">❌</span>
                 <span v-if="todo.done">✅</span>
+              </div>
+              <div class="column">
+                <a class="is-link" @click="more" :id="todo.id">Ver más</a>
               </div>
             </div>
           </div>

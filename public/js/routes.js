@@ -1,6 +1,3 @@
-
-
-
 const Section = {
   template: '#section',
   name:'section',
@@ -61,7 +58,6 @@ const Opener = {
   }
 }
 
-
 const SignIn = {
   template: '#signin',
   methods: {
@@ -111,7 +107,6 @@ const SignIn = {
   }
 }
 
-
 const SignUp = {
   template: '#signup',
   methods: {
@@ -153,7 +148,6 @@ const SignUp = {
   }
 }
 
-
 const RecoverPassword = {
   template: '#recoverpassword',
   methods: {
@@ -194,7 +188,6 @@ const RecoverPassword = {
     }
   }
 }
-
 
 const UpdatePassword = {
   template: '#updatepassword',
@@ -249,7 +242,6 @@ const UpdatePassword = {
   }
 }
 
-
 const ChangePassword = {
   template: '#changepassword',
   methods : {
@@ -285,8 +277,6 @@ const ChangePassword = {
     }
   }
 }
-
-
 
 const SessionEnded = {
   template: '#sessionended',
@@ -361,8 +351,6 @@ const Contact = {
   }
 }
 
-
-
 const Account = {
   template: '#account',
   name: 'account',
@@ -381,8 +369,6 @@ const Account = {
     }
   }
 }
-
-
 
 const EditAccount = {
   template: '#editaccount',
@@ -565,8 +551,6 @@ const Todos = {
     }
   }
 }
-
-
 
 const Todo = {
   template: '#todo',
