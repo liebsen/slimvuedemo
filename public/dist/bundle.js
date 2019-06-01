@@ -450,7 +450,12 @@ const Todo={template:'#todo',name:'todo',mounted:function(){if(!this.loading){th
 this.message="Buscando todos"
 this.$http.get('/v1/account/todos/'+location.pathname.split('/').reverse()[0],{},{emulateJSON:!0}).then(function(res){this.data=res.data
 this.loading=!1
-this.message=""})}},data:function(){return{loading:!1,message:'',messageType:'',data:{},url:this.$route.query.url}}}
+this.message=""})}},methods:{submit:function(){if(!this.loading){this.loading=!0
+this.message="Guardando todo. Por favor espere..."
+this.$http.put('/v1/account/todos/'+this.data.id,this.data,{emulateJSON:!0}).then(function(res){if(res.data.id){this.messageType='is-success'
+this.message="Se ha actualziado el todo exitosamente"}else{this.message="Algo pasó que no se pudo cargar el todo exitosamente"}
+this.loading=!1})}
+return!1}},data:function(){return{loading:!1,message:'',messageType:'',data:{},url:this.$route.query.url}}}
 const AddTodo={template:'#addtodo',name:'addtodo',mounted:function(){},methods:{submit:function(){if(!this.loading){this.loading=!0
 this.message="Guardando todo. Por favor espere..."
 this.$http.put('/v1/account/todos',this.data,{emulateJSON:!0}).then(function(res){if(res.data.id){this.messageType='is-success'
