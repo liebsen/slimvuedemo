@@ -313,15 +313,7 @@ var $navbarBurgers=Array.prototype.slice.call(document.querySelectorAll('.navbar
 if(token.token){options.beforeSend=function(xhr){xhr.setRequestHeader('Authorization','Bearer '+token.token)}}
 var jqXHR=$.ajax(options).then(options.then);jqXHR.done(function(){})}});$.ajaxSetup({dataType:"json",contentType:"application/json; charset=utf-8"})
 $.views.settings.delimiters("[[","]]")
-moment.locale('en');const ChangePassword={template:'#changepassword',methods:{submit:function({type,target}){if(!this.loading){this.loading=!0
-var data={}
-$.map($(target).serializeArray(),function(i){data[i.name]=i.value})
-this.$http.post('/v1/account/password',data,{emulateJSON:!0}).then(function(res){this.loading=!1
-this.messageType=res.data.messageType
-this.message=res.data.message},function(error){this.loading=!1
-this.messageType='is-danger'
-this.message=error.statusText
-console.log(error.statusText)})}}},data:function(){return{loading:!1,message:"",messageType:"",acceptTerms:!1,hash:location.hash.replace('#','')}}};const Section={template:'#section',name:'section',mounted:function(){this.loading=!0
+moment.locale('en');const Section={template:'#section',name:'section',mounted:function(){this.loading=!0
 var self=this
 this.$http.post('/v1/sections'+location.pathname,{},{emulateJSON:!0}).then(function(res){this.data=res.data
 if(this.data.posts){this.data.content=this.data.content.replace('{{slider}}',$.templates('#slider').render(this.data))
@@ -329,27 +321,10 @@ setTimeout(function(){self.slick()},100)}
 document.title=this.data.title
 self.loading=!1},function(error){$('.hero-body').html($.templates('#notfound').render())
 self.loading=!1
-console.log(error.statusText)})},methods:{slick:function(){}},data:function(){return{data:{},loading:!1,url:this.$route.query.url}}};const Todos={template:'#todos',name:'todos',mounted:function(){if(!this.loading){this.loading=!0
-this.$http.post('/v1/account/todos',{},{emulateJSON:!0}).then(function(res){this.data=res.data
-this.loading=!1})}},methods:{remove:function({type,target}){var self=this
-if(!this.loading){if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){this.loading=!0
-if(target.id){self.$http.post('/v1/account/colord',{id:target.id},{emulateJSON:!0}).then(function(res){if(res.data.status==='success'){self.message="Se ha eliminado correctamente la fórmula propia."
-self.$http.post('/v1/account/colors',{},{emulateJSON:!0}).then(function(res){self.data=res.data})}
-self.loading=!1})}}}},more:function({type,target}){if(target.id){this.$router.push('/todo/'+target.id)}}},data:function(){return{loading:!1,message:'',messageType:'',selection:{},filters:filters,data:{colors:{}}}}};const Todo={template:'#todo',name:'todo',mounted:function(){var self=this
-localStorage.setItem("token",this.$route.query.token);setTimeout(function(){location.href=self.url},1000)},data:function(){return{url:this.$route.query.url}}};const AddTodo={template:'#addtodo',mounted:function(){var self=this
-localStorage.setItem("token",this.$route.query.token);setTimeout(function(){location.href=self.url},1000)},data:function(){return{url:this.$route.query.url}}};const Opener={template:'#opener',mounted:function(){var self=this
-localStorage.setItem("token",this.$route.query.token);setTimeout(function(){location.href=self.url},1000)},data:function(){return{url:this.$route.query.url}}};const SessionEnded={template:'#sessionended',mounted:function(){$('section.hero').addClass('is-success')},data:function(){return{filters:filters,hash:location.hash.replace('#','')}}};const SessionExpired={template:'#sessionexpired',mounted:function(){$('section.hero').addClass('is-info')},data:function(){return{filters:filters,hash:location.hash.replace('#','')}}};const NotFound={template:'#notfound',mounted:function(){$('section.hero').addClass('is-danger')},data:function(){return{}}};const Contact={template:'#contact',name:'contact',created:function(){this.data.reason=this.hash},methods:{submit:function({type,target}){if(!this.acceptTerms){this.messageType='is-warning'
-this.message="Debe aceptar los términos y condiciones"}else{if(filters.token().token){this.data.user_id=filters.token().id
-this.data.email=filters.token().email
-this.data.first_name=filters.token().first_name
-this.data.last_name=filters.token().last_name}
-this.loading=!0
-this.$http.post('/v1/contact',this.data,{emulateJSON:!0}).then(function(res){this.loading=!1
-if(res.body.status==='success'){this.messageType='is-success'
-this.message="Su mensaje ha sido enviado.<br>Gracias por tomarse el tiempo de escribirnos.<br>Le responderemos pronto."}},function(error){this.loading=!1
-this.messageType='is-danger'
-this.message=error.statusText
-console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:"",acceptTerms:!1,data:{},hash:location.hash.replace('#','')}}};const SignIn={template:'#signin',methods:{submit:function({type,target}){if(!this.loading){this.loading=!0
+console.log(error.statusText)})},methods:{slick:function(){}},data:function(){return{data:{},message:'',messageType:'',loading:!1,url:this.$route.query.url}}}
+const Opener={template:'#opener',mounted:function(){var self=this
+localStorage.setItem("token",this.$route.query.token);setTimeout(function(){location.href=self.url},1000)},data:function(){return{url:this.$route.query.url}}}
+const SignIn={template:'#signin',methods:{submit:function({type,target}){if(!this.loading){this.loading=!0
 this.message=""
 this.messageType=""
 var self=this
@@ -364,7 +339,8 @@ self.message=""
 self.messageType=""
 app.$router.push('/account')},2000)}else{self.loading=!1
 self.messageType="is-danger"
-self.message=res.data.message}},function(error){console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:"",data:{}}}};const SignUp={template:'#signup',methods:{submit:function({type,target}){if(!this.acceptTerms){this.messageType='is-danger'
+self.message=res.data.message}},function(error){console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:"",data:{}}}}
+const SignUp={template:'#signup',methods:{submit:function({type,target}){if(!this.acceptTerms){this.messageType='is-danger'
 this.message="Debes aceptar nuestros términos y condiciones."}else{this.loading=!0
 this.$http.post('/v1/auth/signup',this.data,{emulateJSON:!0}).then(function(res){if(res.data.status==='success'){this.loading=!1
 this.messageType='is-success'
@@ -374,7 +350,8 @@ self.messageType=""
 app.$router.push('/sign-in')},15000)}},function(error){this.loading=!1
 this.messageType='is-danger'
 this.message=error.statusText
-console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:"",acceptTerms:!1,data:{}}}};const RecoverPassword={template:'#recoverpassword',methods:{submit:function({type,target}){if(!this.loading){this.loading=!0
+console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:"",acceptTerms:!1,data:{}}}}
+const RecoverPassword={template:'#recoverpassword',methods:{submit:function({type,target}){if(!this.loading){this.loading=!0
 this.message=""
 this.messageType=""
 var self=this
@@ -384,7 +361,8 @@ this.$http.post('/v1/auth/recover-password',data,{emulateJSON:!0}).then(function
 self.message="Revisa tu email y sigue el enlace para recuperar tu contraseña."
 self.messageType="is-success"}else{self.loading=!1
 self.messageType="is-danger"
-self.message=res.data.message}},function(error){console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:""}}};const UpdatePassword={template:'#updatepassword',mounted:function(){this.token=this.$route.query.token||""},methods:{submit:function({type,target}){if(!this.loading){this.loading=!0
+self.message=res.data.message}},function(error){console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:""}}}
+const UpdatePassword={template:'#updatepassword',mounted:function(){this.token=this.$route.query.token||""},methods:{submit:function({type,target}){if(!this.loading){this.loading=!0
 this.message=""
 this.messageType=""
 var self=this
@@ -399,8 +377,33 @@ self.message=""
 self.messageType=""
 app.$router.push('/sign-in')},10000)}else{self.loading=!1
 self.messageType="is-danger"
-self.message=res.data.message}},function(error){console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,token:null,message:"",messageType:"",data:{}}}};const Account={template:'#account',name:'account',mounted:function(){localStorage.removeItem("quote")
-localStorage.removeItem("texture")},methods:{},data:function(){return{loading:!1,messageType:"",message:"",data:{message:'',status:''}}}};const EditAccount={template:'#editaccount',mounted:function(){this.data=filters.token()},methods:{onFileChange(e){var files=e.target.files||e.dataTransfer.files;if(!files.length)
+self.message=res.data.message}},function(error){console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,token:null,message:"",messageType:"",data:{}}}}
+const ChangePassword={template:'#changepassword',methods:{submit:function({type,target}){if(!this.loading){this.loading=!0
+var data={}
+$.map($(target).serializeArray(),function(i){data[i.name]=i.value})
+this.$http.post('/v1/account/password',data,{emulateJSON:!0}).then(function(res){this.loading=!1
+this.messageType=res.data.messageType
+this.message=res.data.message},function(error){this.loading=!1
+this.messageType='is-danger'
+this.message=error.statusText
+console.log(error.statusText)})}}},data:function(){return{loading:!1,message:"",messageType:"",acceptTerms:!1,hash:location.hash.replace('#','')}}}
+const SessionEnded={template:'#sessionended',mounted:function(){$('section.hero').addClass('is-success')},data:function(){return{filters:filters,hash:location.hash.replace('#','')}}}
+const SessionExpired={template:'#sessionexpired',mounted:function(){$('section.hero').addClass('is-info')},data:function(){return{filters:filters,hash:location.hash.replace('#','')}}}
+const Contact={template:'#contact',name:'contact',created:function(){this.data.reason=this.hash},methods:{submit:function({type,target}){if(!this.acceptTerms){this.messageType='is-warning'
+this.message="Debe aceptar los términos y condiciones"}else{if(filters.token().token){this.data.user_id=filters.token().id
+this.data.email=filters.token().email
+this.data.first_name=filters.token().first_name
+this.data.last_name=filters.token().last_name}
+this.loading=!0
+this.$http.post('/v1/contact',this.data,{emulateJSON:!0}).then(function(res){this.loading=!1
+if(res.body.status==='success'){this.messageType='is-success'
+this.message="Su mensaje ha sido enviado.<br>Gracias por tomarse el tiempo de escribirnos.<br>Le responderemos pronto."}},function(error){this.loading=!1
+this.messageType='is-danger'
+this.message=error.statusText
+console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:"",acceptTerms:!1,data:{},hash:location.hash.replace('#','')}}}
+const Account={template:'#account',name:'account',mounted:function(){localStorage.removeItem("quote")
+localStorage.removeItem("texture")},methods:{},data:function(){return{loading:!1,messageType:"",message:"",data:{message:'',status:''}}}}
+const EditAccount={template:'#editaccount',mounted:function(){this.data=filters.token()},methods:{onFileChange(e){var files=e.target.files||e.dataTransfer.files;if(!files.length)
 return;this.createImage(files[0])
 this.uploadImage(files[0])},createImage(file,code){var reader=new FileReader();var code=this.code
 reader.onload=(e)=>{var $id=$('#img'+code);$id.css({'background-image':'url('+e.target.result+')','background-size':'cover'});var exif=EXIF.readFromBinaryFile(new base64ToArrayBuffer(e.target.result))};reader.readAsDataURL(file)},removeImage:function(e){this.image=''},clickImage:function(code){this.upload=!0
@@ -433,7 +436,28 @@ this.messageType='is-success'
 this.message="Cuenta actualizada"},function(error){this.loading=!1
 this.messageType='is-danger'
 this.message=error.statusText
-console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:"",acceptTerms:!1,data:{},hash:location.hash.replace('#','')}}};const router=new VueRouter({mode:'history',routes:[{path:'/',component:Section,meta:{title:'SlimVueDemo'}},{path:'/opener',component:Opener,meta:{title:'Redirigiendo...'}},{path:'/sign-in',component:SignIn,meta:{title:'Iniciar sesión'}},{path:'/sign-up',component:SignUp,meta:{title:'Crear nueva cuenta'}},{path:'/recover-password',component:RecoverPassword,meta:{title:'Recuperar contraseña'}},{path:'/update-password',component:UpdatePassword,meta:{title:'Actualizar contraseña'}},{path:'/session-ended',component:SessionEnded,meta:{title:'Sesión finalizada'}},{path:'/session-expired',component:SessionExpired,meta:{title:'Sesión expirada'}},{path:'/contact',component:Contact,meta:{title:'Contacto'}},{path:'/account',component:Account,meta:{title:'SlimVueDemo Menu',hideFooter:!0,requiresAuth:!0}},{path:'/account/edit',component:EditAccount,meta:{title:'Mi cuenta',requiresAuth:!0}},{path:'/account/password',component:ChangePassword,meta:{title:'Cambiar contraseña',requiresAuth:!0}},{path:'/account/todos',component:Todos,meta:{title:'Todos',requiresAuth:!0}},{path:'/account/todos/add',component:AddTodo,meta:{title:'Agregar Todo',requiresAuth:!0}},{path:'/account/todos/*',component:Todo,meta:{title:'Ver Todo',requiresAuth:!0}},{path:"*",component:Section,meta:{title:''}}]});router.beforeEach(function(to,from,next){document.title=to.meta.title;var token=$.parseJSON(localStorage.getItem("token"))||{}
+console.log(error.statusText)})}}},data:function(){return{filters:filters,loading:!1,message:"",messageType:"",acceptTerms:!1,data:{},hash:location.hash.replace('#','')}}}
+const Todos={template:'#todos',name:'todos',mounted:function(){if(!this.loading){this.loading=!0
+this.message="Buscando todos"
+this.$http.get('/v1/account/todos',{},{emulateJSON:!0}).then(function(res){this.data=res.data
+this.loading=!1
+this.message=""})}},methods:{remove:function({type,target}){var self=this
+if(!this.loading){if(confirm("Una vez confirmado los datos no se podrán recuperar. ¿Estás seguro que deseas eliminar esta fórmula?")){this.loading=!0
+if(target.id){self.$http.post('/v1/account/colord',{id:target.id},{emulateJSON:!0}).then(function(res){if(res.data.status==='success'){self.message="Se ha eliminado correctamente la fórmula propia."
+self.$http.post('/v1/account/colors',{},{emulateJSON:!0}).then(function(res){self.data=res.data})}
+self.loading=!1})}}}},more:function({type,target}){if(target.id){this.$router.push('/todos/'+target.id)}}},data:function(){return{loading:!1,filters:filters,message:'',messageType:'',data:{}}}}
+const Todo={template:'#todo',name:'todo',mounted:function(){if(!this.loading){this.loading=!0
+this.message="Buscando todos"
+this.$http.get('/v1/account/todos/'+location.pathname.split('/').reverse()[0],{},{emulateJSON:!0}).then(function(res){this.data=res.data
+this.loading=!1
+this.message=""})}},data:function(){return{loading:!1,message:'',messageType:'',data:{},url:this.$route.query.url}}}
+const AddTodo={template:'#addtodo',name:'addtodo',mounted:function(){},methods:{submit:function(){if(!this.loading){this.loading=!0
+this.message="Guardando todo. Por favor espere..."
+this.$http.put('/v1/account/todos',this.data,{emulateJSON:!0}).then(function(res){if(res.data.id){this.messageType='is-success'
+this.message="Se ha cargado el todo exitosamente"}else{this.message="Algo pasó que no se pudo cargar el todo exitosamente"}
+this.loading=!1})}
+return!1}},data:function(){return{loading:!1,message:'',messageType:'',data:{},url:this.$route.query.url}}}
+const router=new VueRouter({mode:'history',routes:[{path:'/',component:Section,meta:{title:'SlimVueDemo'}},{path:'/opener',component:Opener,meta:{title:'Redirigiendo...'}},{path:'/sign-in',component:SignIn,meta:{title:'Iniciar sesión'}},{path:'/sign-up',component:SignUp,meta:{title:'Crear nueva cuenta'}},{path:'/recover-password',component:RecoverPassword,meta:{title:'Recuperar contraseña'}},{path:'/update-password',component:UpdatePassword,meta:{title:'Actualizar contraseña'}},{path:'/session-ended',component:SessionEnded,meta:{title:'Sesión finalizada'}},{path:'/session-expired',component:SessionExpired,meta:{title:'Sesión expirada'}},{path:'/contact',component:Contact,meta:{title:'Contacto'}},{path:'/account',component:Account,meta:{title:'SlimVueDemo Menu',hideFooter:!0,requiresAuth:!0}},{path:'/edit',component:EditAccount,meta:{title:'Mi cuenta',requiresAuth:!0}},{path:'/password',component:ChangePassword,meta:{title:'Cambiar contraseña',requiresAuth:!0}},{path:'/todos',component:Todos,meta:{title:'Todos',requiresAuth:!0}},{path:'/todos/add',component:AddTodo,meta:{title:'Agregar Todo',requiresAuth:!0}},{path:'/todos/*',component:Todo,meta:{title:'Ver Todo',requiresAuth:!0}},{path:"*",component:Section,meta:{title:''}}]});router.beforeEach(function(to,from,next){document.title=to.meta.title;var token=$.parseJSON(localStorage.getItem("token"))||{}
 if(token.token){filters.refreshToken()}
 setTimeout(function(){var body=$("html, body");body.stop().animate({scrollTop:0},250,'swing',function(){})},10)
 if(to.meta.requiresAuth){if(token){next()}else{next('/')}}else{next()}})
@@ -452,9 +476,10 @@ request.headers.set('Authorization','Bearer '+token.token)
 request.headers.set('Content-Type','application/json')
 request.headers.set('Accept','application/json')
 next()})
-const app=new Vue({router:router,data:{customNavbar:!1,hideSignIn:!1,filters:filters},watch:{'$route'(to,from){this.checkFlags(to)}},mounted:function(){},created:function(){$('.hidden-loading').removeClass('hidden-loading')
+const app=new Vue({router:router,data:{customNavbar:!1,hideSignIn:!1,message:'',filters:filters},watch:{'$route'(to,from){this.checkFlags(to)}},mounted:function(){this.message="cargando aplicación. Por favor espere..."},created:function(){$('.hidden-loading').removeClass('hidden-loading')
 this.$http.post('/v1/navitems',{},{emulateJSON:!0}).then(function(res){$('.footer').html(res.data.footer);$('.menu-items').prepend($.templates('#navbaritem').render(res.data.navitems))
-$('.menu-items').find('a[href="'+location.pathname+'"]').parent().addClass('is-active')},function(error){if(error)
+$('.menu-items').find('a[href="'+location.pathname+'"]').parent().addClass('is-active')
+this.message=""},function(error){if(error)
 console.log("Error while retrieving navitems.")})
 this.checkFlags(this.$route)},methods:{homeClick:function(){var token=$.parseJSON(localStorage.getItem("token"))||{}
 this.$router.push((token.token?'/account':'/'))},scrollUp:function(){var body=$("html, body");body.stop().animate({scrollTop:0},500,'swing',function(){})},scrollDown:function(){var body=$("html, body");body.stop().animate({scrollTop:$(document).height()},500,'swing',function(){})},checkFlags:function(route){this.hideSignIn=!1

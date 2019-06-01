@@ -161,10 +161,13 @@
                 <span>ID</span>
               </div>
               <div class="column has-text-centered">
-                <span>Título</span>
+                <span>Todo</span>
               </div>
               <div class="column has-text-centered">
-                <span>Informe de<br>cotización</span>
+                <span>Descripción</span>
+              </div>
+              <div class="column has-text-centered">
+                <span>Hecho</span>
               </div>
             </div>
             <div class="columns" v-for="todo in data">
@@ -176,6 +179,10 @@
               </div>
               <div class="column">
                 <a class="is-link" @click="more" :id="todo.id">Ver más</a>
+              </div>
+              <div class="column">
+                <span v-if="!todo.done">❌</span>
+                <span v-if="todo.done">✅</span>
               </div>
             </div>
           </div>
@@ -197,10 +204,10 @@
           </div>
         </div>
         <div v-if="data.id" class="content  fadeIn">
-          <div>
-            <h4>Ingresá todo</h4>
+          <div> 
+            <h2 v-html="data.title"></h2>
+            <p v-if="message && message.length" class="help" :class="messageType" v-html="message"></p>          
             <form class="form is-dark is-condensed has-text-left" @submit.prevent="submit">
-
               <div class="columns is-vcentered">
                 <div class="column is-4">
                   <label class="label">Título</label>
@@ -222,9 +229,17 @@
                   <label class="label">Hecho</label>
                 </div>
                 <div class="column">
-                  <span v-html="data.done" class="is-link"></span>
+                  <input type="checkbox" v-model="data.done" class="checkbox">
                 </div>
               </div>
+              <div class="columns is-vcentered">
+                <div class="column">
+                  <div class="control has-text-centered">
+                    <a href="/todos" class="button">Volver</a>
+                    <button type="submit" class="button is-success" :class="{'is-loading' : loading}">Actualizar</button>
+                  </div>
+                </div>  
+              </div>              
             </form>
           </div>
         </div>
@@ -232,13 +247,12 @@
     </section> 
   </script>
 
-
   <script type="text/x-template" id="addtodo">
     <section class="section">
       <div class="container">
         <div class="content fadeIn">
           <div>
-            <h4>Ingresá todo</h4>
+            <h2>Nuevo todo</h2>
             <p v-if="message && message.length" class="help" :class="messageType" v-html="message"></p>
             <form class="form is-dark is-condensed has-text-left" @submit.prevent="submit">
               <div class="columns is-vcentered">
@@ -260,7 +274,8 @@
               <div class="columns is-vcentered fadeIn">
                 <div class="column">
                   <div class="control has-text-centered">
-                    <button type="submit" class="button" :class="{'is-loading' : loading}">Crear nuevo Todo</button>
+                    <a href="/todos" class="button">Volver</a>
+                    <button type="submit" class="button is-success" :class="{'is-loading' : loading}">Crear nuevo Todo</button>
                   </div>
                 </div>  
               </div>
@@ -724,11 +739,6 @@
   <script src="/js/vue.min.js" type="text/javascript"></script>  
   <script src="/js/vue-router.js" type="text/javascript"></script>  
   <script src="/js/vue-resource.min.js" type="text/javascript"></script>  
-  
-  <!-- yes you must include every module, they'll get bundled anyway -->
-  {% for mod in mods %}
-    <script src="/js/{{ mod }}.js" type="text/javascript"></script>    
-  {% endfor %}
   <script src="/js/routes.js" type="text/javascript"></script>  
   {% endif %}
 </body>

@@ -1,0 +1,6 @@
+[2019-06-01 19:30:53] [CRITICAL]: An exception occurred while executing 'INSERT INTO `todos` (`id`, `user_id`, `title`, `comment`, `done`, `enabled`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)' with params ["6", 10, "prueba 1", "test prueba 1", "true", 1, "2019-06-01 19:30:53", "2019-06-01 19:30:53"]:
+
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6' for key 'PRIMARY' 
+[2019-06-01 19:31:35] [CRITICAL]: An exception occurred while executing 'INSERT INTO `todos` (`id`, `user_id`, `title`, `comment`, `done`, `enabled`, `created`, `updated`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)' with params ["6", 10, "prueba 1", "test prueba 1", "true", 1, "2019-06-01 19:31:35", "2019-06-01 19:31:35"]:
+
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '6' for key 'PRIMARY' 

@@ -7,8 +7,6 @@ require __DIR__ . "/vendor/autoload.php";
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
 
-
-$mods = explode(',',getenv('APP_MODS'));
 //use Patchwork\JSqueeze;
 use MatthiasMullie\Minify;
 
@@ -29,11 +27,6 @@ $minifier->add($dest . '/js/moment-with-locales.min.js');
 $minifier->add($dest . '/js/bulma.js');
 $minifier->add($dest . '/js/scrollmap.js');
 $minifier->add($dest . '/js/filters.js');
-
-foreach($mods as $mod){
-	$minifier->add($dest . '/js/' . $mod . '.js');	
-}
-
 $minifier->add($dest . '/js/routes.js');
 $minifier->minify($dest . '/dist/bundle.js');
 
