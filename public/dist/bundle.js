@@ -452,15 +452,17 @@ this.$http.get('/v1/account/todos/'+location.pathname.split('/').reverse()[0],{}
 this.loading=!1
 this.message=""})}},methods:{submit:function(){if(!this.loading){this.loading=!0
 this.message="Guardando todo. Por favor espere..."
-this.$http.put('/v1/account/todos/'+this.data.id,this.data,{emulateJSON:!0}).then(function(res){if(res.data.id){this.messageType='is-success'
-this.message="Se ha actualziado el todo exitosamente"}else{this.message="Algo pasó que no se pudo cargar el todo exitosamente"}
-this.loading=!1})}
+this.$http.put('/v1/account/todos/'+this.data.id,this.data,{emulateJSON:!0}).then(function(res){if(res.data.id){this.$root.messageType='is-success'
+this.$root.message="Se ha actualizado el todo exitosamente"}else{this.$root.message="Algo pasó que no se pudo cargar el todo exitosamente"}
+this.loading=!1
+this.$router.push('/todos')})}
 return!1}},data:function(){return{loading:!1,message:'',messageType:'',data:{},url:this.$route.query.url}}}
 const AddTodo={template:'#addtodo',name:'addtodo',mounted:function(){},methods:{submit:function(){if(!this.loading){this.loading=!0
-this.message="Guardando todo. Por favor espere..."
-this.$http.put('/v1/account/todos',this.data,{emulateJSON:!0}).then(function(res){if(res.data.id){this.messageType='is-success'
-this.message="Se ha cargado el todo exitosamente"}else{this.message="Algo pasó que no se pudo cargar el todo exitosamente"}
-this.loading=!1})}
+this.$root.message="Guardando todo. Por favor espere..."
+this.$http.put('/v1/account/todos',this.data,{emulateJSON:!0}).then(function(res){if(res.data.id){this.$root.messageType='is-success'
+this.$root.message="Se ha cargado el todo exitosamente"}else{this.$root.message="Algo pasó que no se pudo cargar el todo exitosamente"}
+this.loading=!1
+this.$router.push('/todos')})}
 return!1}},data:function(){return{loading:!1,message:'',messageType:'',data:{},url:this.$route.query.url}}}
 const router=new VueRouter({mode:'history',routes:[{path:'/',component:Section,meta:{title:'SlimVueDemo'}},{path:'/opener',component:Opener,meta:{title:'Redirigiendo...'}},{path:'/sign-in',component:SignIn,meta:{title:'Iniciar sesión'}},{path:'/sign-up',component:SignUp,meta:{title:'Crear nueva cuenta'}},{path:'/recover-password',component:RecoverPassword,meta:{title:'Recuperar contraseña'}},{path:'/update-password',component:UpdatePassword,meta:{title:'Actualizar contraseña'}},{path:'/session-ended',component:SessionEnded,meta:{title:'Sesión finalizada'}},{path:'/session-expired',component:SessionExpired,meta:{title:'Sesión expirada'}},{path:'/contact',component:Contact,meta:{title:'Contacto'}},{path:'/account',component:Account,meta:{title:'SlimVueDemo Menu',hideFooter:!0,requiresAuth:!0}},{path:'/edit',component:EditAccount,meta:{title:'Mi cuenta',requiresAuth:!0}},{path:'/password',component:ChangePassword,meta:{title:'Cambiar contraseña',requiresAuth:!0}},{path:'/todos',component:Todos,meta:{title:'Todos',requiresAuth:!0}},{path:'/todos/add',component:AddTodo,meta:{title:'Agregar Todo',requiresAuth:!0}},{path:'/todos/*',component:Todo,meta:{title:'Ver Todo',requiresAuth:!0}},{path:"*",component:Section,meta:{title:''}}]});router.beforeEach(function(to,from,next){document.title=to.meta.title;var token=$.parseJSON(localStorage.getItem("token"))||{}
 if(token.token){filters.refreshToken()}

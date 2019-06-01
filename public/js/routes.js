@@ -573,12 +573,13 @@ const Todo = {
         this.message = "Guardando todo. Por favor espere..."
         this.$http.put('/v1/account/todos/' + this.data.id, this.data, {emulateJSON:true}).then(function(res){
           if(res.data.id){
-            this.messageType = 'is-success'
-            this.message = "Se ha actualziado el todo exitosamente"
+            this.$root.messageType = 'is-success'
+            this.$root.message = "Se ha actualizado el todo exitosamente"
           } else {
-            this.message = "Algo pasó que no se pudo cargar el todo exitosamente"
+            this.$root.message = "Algo pasó que no se pudo cargar el todo exitosamente"
           }
           this.loading = false
+          this.$router.push('/todos')
         })
       }
 
@@ -605,15 +606,16 @@ const AddTodo = {
     submit: function(){
       if(!this.loading){  
         this.loading = true
-        this.message = "Guardando todo. Por favor espere..."
+        this.$root.message = "Guardando todo. Por favor espere..."
         this.$http.put('/v1/account/todos', this.data, {emulateJSON:true}).then(function(res){
           if(res.data.id){
-            this.messageType = 'is-success'
-            this.message = "Se ha cargado el todo exitosamente"
+            this.$root.messageType = 'is-success'
+            this.$root.message = "Se ha cargado el todo exitosamente"
           } else {
-            this.message = "Algo pasó que no se pudo cargar el todo exitosamente"
+            this.$root.message = "Algo pasó que no se pudo cargar el todo exitosamente"
           }
           this.loading = false
+          this.$router.push('/todos')
         })
       }
 

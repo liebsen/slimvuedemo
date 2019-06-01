@@ -155,7 +155,8 @@
           </div>
         </div>
         <div v-if="data.length" class="content  fadeIn">
-          <div v-show="!loading">
+          <p v-if="$root.message && $root.message.length" class="help" :class="$root.messageType" v-html="$root.message"></p>          
+          <div>
             <div class="columns is-vcentered">
               <div class="column has-text-centered">
                 <span>Todo</span>
@@ -185,6 +186,13 @@
                 <a class="is-link" @click="more" :id="todo.id">Ver más</a>
               </div>
             </div>
+            <div class="columns is-vcentered">
+              <div class="column">
+                <div class="control has-text-centered">
+                  <a href="/todos/add" class="button">Agregar Todo</a>
+                </div>
+              </div>  
+            </div>              
           </div>
         </div>
       </div>
