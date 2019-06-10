@@ -36,7 +36,7 @@ $minifier->add($dest . '/css/hero.css');
 $minifier->add($dest . '/fonts/modern-pictograms/font.css');
 //$minifier->add($dest . '/css/slick.css');
 //$minifier->add($dest . '/css/slick-theme.css');
-$minifier->add($dest . '/css/tips.css');
+$minifier->add($dest . '/css/snackbar.css');
 $minifier->minify($dest . '/dist/bundle.css');
 
 /**/

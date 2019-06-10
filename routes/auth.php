@@ -46,27 +46,38 @@ $app->group('/v1', function() {
 
         $this->post("/signin", function ($request, $response, $arguments) {
             $body = $request->getParsedBody();
+            extract($body);
+
+            if(empty($email)||empty($email)){
+                throw new ForbiddenException("No credentials data.", 404);
+            }
 
             $user = $this->spot->mapper("App\User")->first([
-                'email' => $body['email'],
-                'enabled' => 1,
-                'password_hash' => sha1($body['password'].getenv('APP_HASH_SALT'))
+                'email' => $email
             ]);
 
             if($user){
-                $fractal = new Manager();
-                $fractal->setSerializer(new DataArraySerializer);
-                $resource = new Item($user, new User);
-                $data = $fractal->createData($resource)->toArray()['data'];
+                if(!$user->enabled){
+                    $data["status"] = "error";
+                    $data["message"] = "La cuenta existe pero aún no ha sido validada por el usuario.";
+                } else if($user->password_hash !== sha1($password.getenv('APP_HASH_SALT'))){
+                    $data["status"] = "error";
+                    $data["message"] = "La cuenta existe pero la contraseña es incorrecta.";
+                } else {
+                    $fractal = new Manager();
+                    $fractal->setSerializer(new DataArraySerializer);
+                    $resource = new Item($user, new User);
+                    $data = $fractal->createData($resource)->toArray()['data'];
 
-                $data["status"] = "success";
-                //$data["message"] = "Hi {$user->first_name}";
+                    $data["status"] = "success";
+                    $data["message"] = "Hola, {$user->first_name} qué bueno verte de nuevo por aquí.";
 
-                $user->data(['last_activity' => date('Y-m-d H:i')]);
-                $this->spot->mapper("App\User")->save($user);
+                    $user->data(['last_activity' => date('Y-m-d H:i')]);
+                    $this->spot->mapper("App\User")->save($user);
+                }
             } else {
                 $data["status"] = "error";
-                $data["message"] = "El email y/o contraseña son incorrectas.";
+                $data["message"] = "La cuenta <b>{$email}</b> no existe.";
             }
 
             return $response->withStatus(200)

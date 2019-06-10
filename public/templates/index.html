@@ -20,66 +20,73 @@
   {% else %}   
   <link rel="stylesheet" href="/css/bulma.css">
   <link rel="stylesheet" href="/css/hero.css">
+  <link rel="stylesheet" href="/css/snackbar.css">
   {% endif %}
 </head>
 <body>
   <div id="app">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item" @click="homeClick" href="#">
-          <img src="/img/logo.png" width="112" height="28">
-        </a>
+    <div v-show="$root.loading" class="spinner-outer fadeIn"><div class="spinner" data-layer="4"><div class="spinner-container"><div class="spinner-rotator"><div class="spinner-left"><div class="spinner-circle"></div></div><div class="spinner-right"><div class="spinner-circle"></div></div></div></div><div class="spinner-message" v-html="message"></div></div></div>
+    <div v-show="!$root.loading">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" @click="homeClick" href="#">
+            <img src="/img/logo.png" width="112" height="28">
+          </a>
 
-        <div class="menu-bg"></div>
-        <div class="menu-burger">☰</div>
-        <div class="menu-items">
-          <div>
-            <a href="/">
-              <img src="/img/logo.png" width="224" height="56">
-            </a>
-          </div>
+          <div class="menu-bg"></div>
+          <div class="menu-burger">☰</div>
+          <div class="menu-items">
+            <div>
+              <a href="/">
+                <img src="/img/logo.png" width="224" height="56">
+              </a>
+            </div>
 
-          <div class="menu-links">
-          </div>
+            <div class="menu-links">
+            </div>
 
-          <div class="menu-buttons">
-            <router-link to="/sign-up" v-show="!filters.token().token" class="button is-primary is-outlined">
-              <span>Crear cuenta</span>
-            </router-link>
-            <router-link to="/account" v-show="filters.token().token" class="button is-primary is-outlined">
-              <span>👤 Mi cuenta</span>
-            </router-link>
-            <a href="#" @click="filters.endSessionWithConfirm()" v-show="filters.token().token" class="button is-danger is-outlined">
-              <span>Cerrar sesión</span>
-            </a>
-            <router-link to="/sign-in" v-show="!filters.token().token" class="button is-light is-outlined">
-              Iniciar sesión
-            </router-link>
-          </div>
-        </div>      
+            <div class="menu-buttons">
+              <router-link to="/sign-up" v-show="!$root.token().token" class="button is-primary is-outlined">
+                <span>Crear cuenta</span>
+              </router-link>
+              <router-link to="/account" v-show="$root.token().token" class="button is-primary is-outlined">
+                <span>👤 Mi cuenta</span>
+              </router-link>
+              <a href="#" @click="$root.endSessionWithConfirm()" v-show="$root.token().token" class="button is-danger is-outlined">
+                <span>Cerrar sesión</span>
+              </a>
+              <router-link to="/sign-in" v-show="!$root.token().token" class="button is-light is-outlined">
+                Iniciar sesión
+              </router-link>
+            </div>
+          </div>      
+        </div>
+      </nav>
+
+      <keep-alive exclude="todos,todo">
+        <router-view :key="$route.fullPath"></router-view>
+      </keep-alive>
+
+      <div class="scrollmap">
+        <a href="#" @click="scrollUp" class="navbar-item up"></a>
+        <a href="#" @click="scrollDown" class="navbar-item down"></a>
       </div>
-    </nav>
 
-    <keep-alive exclude="todos,todo">
-      <router-view :key="$route.fullPath"><div class="spinner-outer fadeIn"><div class="spinner" data-layer="4"><div class="spinner-container"><div class="spinner-rotator"><div class="spinner-left"><div class="spinner-circle"></div></div><div class="spinner-right"><div class="spinner-circle"></div></div></div></div><div class="spinner-message" v-html="message"></div></div></div></router-view>
-    </keep-alive>
+      <div class="ui-snackbar ui-snackbar--is-inactive">
+        <p class="ui-snackbar__message" v-html="$root.message"></p>
+      </div>
 
-    <div class="scrollmap">
-      <a href="#" @click="scrollUp" class="navbar-item up"></a>
-      <a href="#" @click="scrollDown" class="navbar-item down"></a>
-    </div>
-
-    <div class="tosprompt">
-      <div class="notification">
-        <p>Utilizamos cookies de análisis para mejorar su experiencia y mejorar esta herramienta. No compartimos sus datos personales con otros. <router-link to="/politica-de-privacidad">Leer mas</router-link></p>
-        <div class="has-text-centered">
-          <div class="button" onclick="tosAgree(this)">Acepto</div>
+      <div class="tosprompt">
+        <div class="notification">
+          <p>Utilizamos cookies de análisis para mejorar su experiencia y mejorar esta herramienta. No compartimos sus datos personales con otros. <router-link to="/politica-de-privacidad">Leer mas</router-link></p>
+          <div class="has-text-centered">
+            <div class="button" onclick="tosAgree(this)">Acepto</div>
+          </div>
         </div>
       </div>
+      <footer class="footer hidden-loading"></footer>
     </div>
   </div>
-
-  <footer class="footer hidden-loading"></footer>
   
   <script type="text/x-template" id="section">
     <section class="section">
@@ -92,7 +99,7 @@
       </div>
       <div v-if="data.slug != '/'" class="hero-body">
         <div class="container is-padded-top">
-          <div v-show="loading" class="spinner-outer fadeIn"><div class="spinner" data-layer="4"><div class="spinner-container"><div class="spinner-rotator"><div class="spinner-left"><div class="spinner-circle"></div></div><div class="spinner-right"><div class="spinner-circle"></div></div></div></div><div class="spinner-message" v-html="message"></div></div></div>
+          
           <div class="content">
             <h3 class="is-uppercase" v-html="data.title"></h3>
             <div class="is-uppercase" v-html="data.intro"></div>
@@ -107,33 +114,40 @@
     <section class="section">
       <div class="container">
         <div class="content hero-system fadeIn">
-          <p v-if="data.message.length" class="has-text-centered help" :class="'is-' + data.status" v-html="data.message"></p>
-          <h1>Hola, <span class="is-capitalized" v-html="filters.token().first_name"></span></h1>
+          <h1>Hola, <span class="is-capitalized" v-html="$root.token().first_name"></span></h1>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
           <div class="columns is-menu is-dial has-text-centered">
             <div class="column">
               <a href="/edit">
-                <h1 class="is-size-1">👤</h1>
+                <div class="item">
+                  <h1 class="is-size-1">👤</h1>
+                </div>
                 <h4 class="is-uppercase">Mi Cuenta</h4>
               </a>
             </div>
             <div class="column">
               <a href="/password">
-                <h1 class="is-size-1">🔑</h1>
-                <h4 class="is-uppercase">Cambiar Contraseña</h4>
+                <div class="item">
+                  <h1 class="is-size-1">🔑</h1>
+                </div>
+                <h4 class="is-uppercase">Cambiar<br>Contraseña</h4>
               </a>
             </div>
             <div class="column">
               <a href="/todos">
-                <h1 class="is-size-1">🕒</h1>
+                <div class="item">
+                  <h1 class="is-size-1">🕒</h1>
+                </div>
                 <h4 class="is-uppercase">Todos</h4>
               </a>
             </div>
             <div class="column">
               <a href="/todos/add">
-                <h1 class="is-size-1">➕</h1>
-                <h4 class="is-uppercase">Agregar todo</h4>
+                <div class="item">
+                  <h1 class="is-size-1">➕</h1>
+                </div>
+                <h4 class="is-uppercase">Agregar<br>todo</h4>
               </a>
             </div>
           </div>
@@ -144,111 +158,92 @@
 
   <script type="text/x-template" id="todos">
     <section class="section">
-      <div v-show="loading" class="spinner-outer fadeIn"><div class="spinner" data-layer="4"><div class="spinner-container"><div class="spinner-rotator"><div class="spinner-left"><div class="spinner-circle"></div></div><div class="spinner-right"><div class="spinner-circle"></div></div></div></div><div class="spinner-message" v-html="message"></div></div></div>
-
-      <div v-show="!loading" class="container">
-        <div v-if="!data.length" class="content hero-system is-dark fadeIn">
-          <div class="columns is-vcentered">
-            <div class="column has-text-centered">
-              <label class="is-size-5"><span class="has-text-danger">No se encontraron todos. <a href="/todos/add">Agrega un todo ahora</a></span></label>
+      <div class="has-action-space">
+        <div class="container">
+          <div v-if="!data.length" class="content hero-system is-dark fadeIn">
+            <div class="columns is-vcentered">
+              <div class="column has-text-centered">
+                <label class="is-size-5"><span class="has-text-danger">No se encontraron todos. <a href="/todos/add">Agrega un todo ahora</a></span></label>
+              </div>
+            </div>
+          </div>
+          <div v-if="data.length" class="content fadeIn">
+            <div class="tile is-ancestor">
+              <div class="tile is-parent" v-for="todo in data">
+                <article class="tile is-child box">
+                  <p class="title" v-html="todo.title"></p>
+                  <p class="subtitle" v-html="todo.comment"></p>
+                  <div class="affix">
+                    <span v-if="!todo.done">❌</span>
+                    <span v-if="todo.done">✅</span>
+                    <a class="is-link" @click="more" :id="todo.id">📝</a>
+                  </div>
+                </article>              
+              </div>
             </div>
           </div>
         </div>
-        <div v-if="data.length" class="content  fadeIn">
-          <p v-if="$root.message && $root.message.length" class="help" :class="$root.messageType" v-html="$root.message"></p>          
-          <div>
-            <div class="columns is-vcentered">
-              <div class="column has-text-centered">
-                <span>Todo</span>
-              </div>
-              <div class="column has-text-centered">
-                <span>Descripción</span>
-              </div>
-              <div class="column has-text-centered">
-                <span>Hecho</span>
-              </div>
-              <div class="column has-text-centered">
-                <span></span>
-              </div>
+        <div class="columns is-vcentered wp-action-space fadeIn">
+          <div class="column">
+            <div class="control has-text-centered">
+              <router-link class="button is-large is-rounded is-info is-outlined" to="/account">Volver a menú principal</router-link>
+              <router-link class="button is-large is-rounded is-success" to="/todos/add">Agregar un nuevo Todo</router-link>
             </div>
-            <div class="columns" v-for="todo in data">
-              <div class="column">
-                <div class="is-link" v-html="todo.title"></div>
-              </div>
-              <div class="column">
-                <div class="is-link" v-html="todo.comment"></div>
-              </div>
-              <div class="column">
-                <span v-if="!todo.done">❌</span>
-                <span v-if="todo.done">✅</span>
-              </div>
-              <div class="column">
-                <a class="is-link" @click="more" :id="todo.id">Ver más</a>
-              </div>
-            </div>
-            <div class="columns is-vcentered">
-              <div class="column">
-                <div class="control has-text-centered">
-                  <a href="/todos/add" class="button">Agregar Todo</a>
-                </div>
-              </div>  
-            </div>              
-          </div>
-        </div>
+          </div>    
+        </div>        
       </div>
     </section> 
   </script>
 
   <script type="text/x-template" id="todo">
     <section class="section">
-      <div v-show="loading" class="spinner-outer fadeIn"><div class="spinner" data-layer="4"><div class="spinner-container"><div class="spinner-rotator"><div class="spinner-left"><div class="spinner-circle"></div></div><div class="spinner-right"><div class="spinner-circle"></div></div></div></div><div class="spinner-message" v-html="message"></div></div></div>
-
-      <div v-show="!loading" class="container">
-        <div v-if="!data.id" class="content hero-system is-dark fadeIn">
-          <div class="columns is-vcentered">
-            <div class="column has-text-centered">
-              <label class="is-size-5"><span class="has-text-danger">No se encontró todo</span></label>
+      <div class="has-action-space">
+        <div class="container">
+          <div v-if="!data.id" class="content hero-system is-dark fadeIn">
+            <div class="columns is-vcentered">
+              <div class="column has-text-centered">
+                <label class="is-size-5"><span class="has-text-danger">No se encontró todo</span></label>
+              </div>
             </div>
           </div>
-        </div>
-        <div v-if="data.id" class="content  fadeIn">
-          <div> 
-            <h2 v-html="data.title"></h2>
-            <p v-if="message && message.length" class="help" :class="messageType" v-html="message"></p>          
-            <form class="form is-dark is-condensed has-text-left" @submit.prevent="submit">
-              <div class="columns is-vcentered">
-                <div class="column is-4">
-                  <label class="label">Título</label>
-                </div>
-                <div class="column">
-                  <span v-html="data.title" class="is-link"></span>
-                </div>
-              </div>
-              <div class="columns is-vcentered">
-                <div class="column is-4">
-                  <label class="label">Descripción</label>
-                </div>
-                <div class="column">
-                  <span v-html="data.comment" class="is-link"></span>
-                </div>
-              </div>
-              <div class="columns is-vcentered">
-                <div class="column is-4">
-                  <label class="label">Hecho</label>
-                </div>
-                <div class="column">
-                  <input type="checkbox" v-model="data.done" class="checkbox">
-                </div>
-              </div>
-              <div class="columns is-vcentered">
-                <div class="column">
-                  <div class="control has-text-centered">
-                    <a href="/todos" class="button">Volver</a>
-                    <button type="submit" class="button is-success" :class="{'is-loading' : loading}">Actualizar</button>
+          <div v-if="data.id" class="content  fadeIn">
+            <div> 
+              <h2 v-html="data.title"></h2>
+              <form class="form is-dark is-condensed has-text-left" @submit.prevent="submit">
+                <div class="columns is-vcentered">
+                  <div class="column is-4">
+                    <label class="label">Título</label>
                   </div>
-                </div>  
-              </div>              
-            </form>
+                  <div class="column">
+                    <span v-html="data.title" class="is-link"></span>
+                  </div>
+                </div>
+                <div class="columns is-vcentered">
+                  <div class="column is-4">
+                    <label class="label">Descripción</label>
+                  </div>
+                  <div class="column">
+                    <span v-html="data.comment" class="is-link"></span>
+                  </div>
+                </div>
+                <div class="columns is-vcentered">
+                  <div class="column is-4">
+                    <label class="label">Hecho</label>
+                  </div>
+                  <div class="column">
+                    <input v-model="data.done" type="checkbox" class="checkbox">
+                  </div>
+                </div>
+                <div class="columns is-vcentered wp-action-space fadeIn">
+                  <div class="column">
+                    <div class="control has-text-centered">
+                      <router-link class="button is-large is-rounded is-info is-outlined" to="/todos">Volver a Todos</router-link>
+                      <button type="submit" class="button is-large is-rounded is-success" :class="{'is-loading' : $root.processing}">Actualizar</button>
+                    </div>
+                  </div>    
+                </div>           
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -257,37 +252,38 @@
 
   <script type="text/x-template" id="addtodo">
     <section class="section">
-      <div class="container">
-        <div class="content fadeIn">
-          <div>
-            <h2>Nuevo todo</h2>
-            <p v-if="message && message.length" class="help" :class="messageType" v-html="message"></p>
-            <form class="form is-dark is-condensed has-text-left" @submit.prevent="submit">
-              <div class="columns is-vcentered">
-                <div class="column is-4">
-                  <label class="label">Título</label>
-                </div>
-                <div class="column">
-                  <input v-model="data.title" class="input" type="text" placeholder="Ingresá todo" required>
-                </div>
-              </div>
-              <div class="columns is-vcentered">
-                <div class="column is-4">
-                  <label class="label">Comentario</label>
-                </div>
-                <div class="column">
-                  <textarea class="textarea input" v-model="data.comment"></textarea>
-                </div>
-              </div>              
-              <div class="columns is-vcentered fadeIn">
-                <div class="column">
-                  <div class="control has-text-centered">
-                    <a href="/todos" class="button">Volver</a>
-                    <button type="submit" class="button is-success" :class="{'is-loading' : loading}">Crear nuevo Todo</button>
+      <div class="has-action-space">
+        <div class="container">
+          <div class="content fadeIn">
+            <div>
+              <h2>Nuevo todo</h2>
+              <form class="form is-dark is-condensed has-text-left" @submit.prevent="submit">
+                <div class="columns is-vcentered">
+                  <div class="column is-4">
+                    <label class="label">Título</label>
                   </div>
-                </div>  
-              </div>
-            </form>
+                  <div class="column">
+                    <input v-model="data.title" class="input" type="text" placeholder="Ingresá todo" required>
+                  </div>
+                </div>
+                <div class="columns is-vcentered">
+                  <div class="column is-4">
+                    <label class="label">Comentario</label>
+                  </div>
+                  <div class="column">
+                    <textarea class="textarea input" v-model="data.comment"></textarea>
+                  </div>
+                </div>              
+                <div class="columns is-vcentered wp-action-space fadeIn">
+                  <div class="column">
+                    <div class="control has-text-centered">
+                      <router-link class="button is-large is-rounded is-info is-outlined" to="/todos">Volver a Todos</router-link>
+                      <button type="submit" class="button is-large is-rounded is-success" :class="{'is-loading' : $root.processing}">Crear nuevo Todo</button>
+                    </div>
+                  </div>    
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -296,61 +292,62 @@
 
   <script type="text/x-template" id="editaccount">
     <section class="section">
-      <div class="container has-text-left">
-        <div class="content fadeIn">
-          <h3 class="is-uppercase">👤 Mi Cuenta</h3>
-          <p class="is-uppercase">Mantiene tus datos al día.</p>
-          <div class="badge account-picture">
-            <input hidden="true" id="uploads" type="file" @change="onFileChange" name="uploads[]" optional="true" accept="image/*">
-            <div class="is-circle picture" v-on:click="clickImage(filters.token().id)" :style="'background-image:url(' + filters.token().picture + ')'" data-balloon="Upload a profile is-picture" data-balloon-pos="right"></div>
+      <div class="has-action-space">
+        <div class="container has-text-left">
+          <div class="content fadeIn">
+            <h3 class="is-uppercase">👤 Mi Cuenta</h3>
+            <p class="is-uppercase">Mantiene tus datos al día.</p>
+            <div class="badge account-picture">
+              <input hidden="true" id="uploads" type="file" @change="onFileChange" name="uploads[]" optional="true" accept="image/*">
+              <div class="is-circle picture" v-on:click="clickImage($root.token().id)" :style="'background-image:url(' + $root.token().picture + ')'" data-balloon="Upload a profile is-picture" data-balloon-pos="right"></div>
+            </div>
+            <form class="form has-text-left" @submit.prevent="submit">
+              <div class="field is-horizontal">
+                <div class="field-body">
+                  <div class="field">
+                    <label class="label">Nombre</label>
+                    <div class="control">
+                      <input v-model="data.first_name" class="input" type="text" placeholder="Juan" autofocus required>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Apellido</label>
+                    <div class="control">
+                      <input v-model="data.last_name" class="input" type="text" placeholder="Rodríguez" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input v-model="data.email" class="input" type="email" placeholder="juanrodriguez@gmail.com" required>
+                </div>
+                <p class="help is-danger is-hidden">El email no es válido</p>
+              </div>
+
+              <div class="field is-horizontal">
+                <div class="field-body">
+                  <div class="field">
+                    <label class="label">Bio</label>
+                    <div class="control">
+                      <textarea v-model="data.bio" class="textarea" placeholder="Mi nombre es Juan y amo la montaña."></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="columns is-vcentered wp-action-space fadeIn">
+                <div class="column">
+                  <div class="control has-text-centered">
+                    <router-link class="button is-large is-rounded is-info is-outlined" to="/account">Volver a menú principal</router-link>
+                    <button type="submit" class="button is-large is-rounded is-success" :class="{'is-loading' : $root.processing}">Actualizar datos de perfil</button>
+                  </div>
+                </div>    
+              </div>
+            </form>
           </div>
-          <form class="form has-text-left" @submit.prevent="submit">
-            <div class="field is-horizontal">
-              <div class="field-body">
-                <div class="field">
-                  <label class="label">Nombre</label>
-                  <div class="control">
-                    <input v-model="data.first_name" class="input" type="text" placeholder="Juan" autofocus required>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="label">Apellido</label>
-                  <div class="control">
-                    <input v-model="data.last_name" class="input" type="text" placeholder="Rodríguez" required>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Email</label>
-              <div class="control">
-                <input v-model="data.email" class="input" type="email" placeholder="juanrodriguez@gmail.com" required>
-              </div>
-              <p class="help is-danger is-hidden">El email no es válido</p>
-            </div>
-
-            <div class="field is-horizontal">
-              <div class="field-body">
-                <div class="field">
-                  <label class="label">Bio</label>
-                  <div class="control">
-                    <textarea v-model="data.bio" class="textarea" placeholder="Mi nombre es Juan y amo la montaña."></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field" v-if="message && message.length">
-              <p class="help" :class="messageType" v-html="message"></p>
-            </div>
-
-            <div class="field">
-              <div class="control">
-                <button class="button is-success is-fullwidth" :class="{'is-loading' : loading}">Actualizar</button>
-              </div>
-            </div>    
-          </form>
         </div>
       </div>
     </section>
@@ -358,36 +355,38 @@
 
   <script type="text/x-template" id="changepassword">
     <section class="section">
-      <div class="container has-text-left">
-        <div class="content fadeIn">
-          <h3 class="is-uppercase">🔑 Cambiar contraseña</h3>
-          <p class="is-uppercase">Introduzca su contraseña actual y luego la nueva contraseña.</p>
-          <form class="form has-text-left" @submit.prevent="submit">
-            <div class="field is-horizontal">
-              <div class="field-body">
-                <div class="field">
-                  <label class="label">Contraseña actual</label>
-                  <div class="control">
-                    <input class="input" name="password" type="password" placeholder="********" value="" autofocus required>
+      <div class="has-action-space">
+        <div class="container has-text-left">
+          <div class="content fadeIn">
+            <h3 class="is-uppercase">🔑 Cambiar contraseña</h3>
+            <p class="is-uppercase">Introduzca su contraseña actual y luego la nueva contraseña.</p>
+            <form class="form has-text-left" @submit.prevent="submit">
+              <div class="field is-horizontal">
+                <div class="field-body">
+                  <div class="field">
+                    <label class="label">Contraseña actual</label>
+                    <div class="control">
+                      <input v-model="data.password" class="input" type="password" placeholder="********" value="" autofocus required>
+                    </div>
                   </div>
-                </div>
-                <div class="field">
-                  <label class="label">Nueva contraseña</label>
-                  <div class="control">
-                    <input class="input" type="password" name="new_password" placeholder="********" value="" required>
+                  <div class="field">
+                    <label class="label">Nueva contraseña</label>
+                    <div class="control">
+                      <input v-model="data.new_password" class="input" type="password" placeholder="********" value="" required>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="field" v-if="message && message.length">
-              <p class="help" :class="messageType" v-html="message"></p>
-            </div>
-            <div class="field">
-              <div class="control">
-                <button class="button is-success is-fullwidth" :class="{'is-loading' : loading}">Actualizar contraseña</button>
-              </div>
-            </div>    
-          </form>
+              <div class="columns is-vcentered wp-action-space fadeIn">
+                <div class="column">
+                  <div class="control has-text-centered">
+                    <router-link class="button is-large is-rounded is-info is-outlined" to="/account">Volver a menú principal</router-link>
+                    <button type="submit" class="button is-large is-rounded is-success" :class="{'is-loading' : $root.processing}">Actualizar contraseña</button>
+                  </div>
+                </div>    
+              </div>              
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -395,14 +394,14 @@
 
   <script type="text/x-template" id="signin">
     <section class="section">
-      <div class="container" v-if="filters.token().token">
+      <div class="container" v-if="$root.token().token">
         <div class="inline-background hero-system fadeIn">
           <div class="content hero fadeIn">
             <h3>Ya tiene una sesión iniciada</h3> 
             <p>Qué desea hacer?</p>
             <div class="field is-grouped">
               <div class="control">
-                <button @click="filters.endSessionWithConfirm()" class="button is-text">Cerrar sesión</button>            
+                <button @click="$root.endSessionWithConfirm()" class="button is-text">Cerrar sesión</button>            
               </div>
               <div class="control">
                 <a href="/account" class="button is-link">Llevame a Inicio</a>
@@ -411,7 +410,7 @@
           </div>
         </div>
       </div>
-      <div v-if="!filters.token().token">
+      <div v-if="!$root.token().token">
         <div class="container">
           <div class="content columns fadeIn">
             <div class="column is-half is-padded-top">
@@ -421,18 +420,17 @@
                 <div class="field">
                   <!--label class="label">Email</label-->
                   <div class="control">
-                    <input class="input" type="email" name="email" placeholder="Usuario" autofocus required>
+                    <input v-model="data.email" class="input" type="email" placeholder="Usuario" autofocus required>
                   </div>
                 </div>
                 <div class="field">
                   <div class="control">
-                    <input class="input" type="password" name="password" placeholder="********" required>
+                    <input v-model="data.password" class="input" type="password" placeholder="********" required>
                   </div>
-                  <p v-if="message && message.length" class="help" :class="messageType" v-html="message"></p>
                 </div>
                 <div class="field">
                   <div class="control">
-                    <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : loading}">Ingresar</button>
+                    <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Ingresar</button>
                   </div>
                 </div>    
                 <div class="field">
@@ -478,11 +476,10 @@
                     I agree to the <a href="/terms">terms and conditions</a>
                   </label>
                 </div>
-                <p v-if="message && message.length" class="help" :class="messageType" v-html="message"></p>
               </div>              
               <div class="field">
                 <div class="control">
-                  <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : loading}">Registrarme</button>
+                  <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Registrarme</button>
                 </div>
               </div>    
               <div class="field">
@@ -508,13 +505,12 @@
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control">
-                  <input class="input" type="email" name="email" placeholder="johndoe@gmail.com" autofocus required>
+                  <input v-model="data.email" class="input" type="email" placeholder="lorenaledesma@gmail.com" autofocus required>
                 </div>
-                <p v-if="message && message.length" class="help" :class="messageType" v-html="message"></p>            
               </div>
               <div class="field">
                 <div class="control">
-                  <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : loading}">Recuperar contraseña</button>
+                  <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Recuperar contraseña</button>
                 </div>
               </div>    
               <!--div class="field">
@@ -543,13 +539,12 @@
               <div class="field">
                 <label class="label">Nueva contraseña</label>
                 <div class="control">
-                  <input class="input" type="password" name="password" placeholder="********" required>
+                  <input v-model="data.password" class="input" type="password" placeholder="********" required>
                 </div>
-                <p v-if="message && message.length" class="help" :class="messageType" v-html="message"></p>
               </div>
               <div class="field">
                 <div class="control">
-                  <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : loading}">Actualizar contraseña</button>
+                  <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Actualizar contraseña</button>
                 </div>
               </div>    
               <!--div class="field">
@@ -571,8 +566,8 @@
           <div class="column is-half is-padded-top">
             <h3 class="is-uppercase">Contacto</h3>
             <p class="is-uppercase">Por favor indica brevemente como podemos ayudarte.</p>
-            <p v-if="filters.token().token">
-              De: <span class="has-text-success" v-html="filters.token().email"></span>
+            <p v-if="$root.token().token">
+              De: <span class="has-text-success" v-html="$root.token().email"></span>
             </p>
             <form class="form has-text-left" @submit.prevent="submit">
               <div class="field">
@@ -583,7 +578,7 @@
                 </select>
               </div>
 
-              <div class="field is-horizontal" v-if="!filters.token().token">
+              <div class="field is-horizontal" v-if="!$root.token().token">
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
@@ -598,7 +593,7 @@
                 </div>
               </div>
 
-              <div class="field" v-if="!filters.token().token">
+              <div class="field" v-if="!$root.token().token">
                 <div class="control">
                   <input v-model="data.email" class="input" type="email" placeholder="Email" autofocus required>
                 </div>
@@ -625,7 +620,7 @@
 
               <div class="field">
                 <div class="control ">
-                  <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : loading}">Enviar</button>
+                  <button type="submit" class="button is-success is-fullwidth" :class="{'is-loading' : $root.processing}">Enviar</button>
                 </div>
               </div>    
             </form>

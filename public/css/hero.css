@@ -466,3 +466,49 @@
 .hero-picture .subtitle {
   font-size: 1.5rem;
 }
+
+.has-action-space {
+  padding-bottom: 7rem;
+}
+
+.padless-bottom {
+  padding-bottom: 0;
+}
+
+.wp-action-space {
+  position: fixed;
+  display: inline-block;
+  bottom: 0.75rem;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  background-color: white;
+  padding: 1rem 2rem;
+  margin-bottom: 0 !important;
+}
+
+
+.is-dial h4 {
+  padding-top: 1.25rem;
+} 
+
+.is-dial .item {
+  -webkit-border-radius: 16px;
+  -webkit-border-top-right-radius: 0;
+  -moz-border-radius: 16px;
+  -moz-border-radius-topright: 0;
+  border-radius: 16px;
+  border-top-right-radius: 0;  
+  background-color: whitesmoke;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0.75rem;
+  height: 120px;
+  width: 120px;
+}
+
+.is-dial .item h1 {
+  padding-top: 1.25rem;
+}
